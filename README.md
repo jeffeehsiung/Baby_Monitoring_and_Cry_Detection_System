@@ -30,3 +30,11 @@ An anti-aliasing low pass filter following the gain/signal conditioning cell is 
 Analog-to-digital converter cell will transmit a digital representation of the gained, filtered analog signal to a digital processor. ADC of the system will have a bit depth of at least 8 to ensure the quality of a signal magnitude rating system, with a sampling rate of at least 8,000 Hz, up to 16,000Hz.
 
 Digital signal processor, in the next stage, consists of two elements, digital filtering and digital signal processing. Digital filtering is to further reduce noise and smooth the signal output from ADC, such as by a digitized Butterworth low pass filter. Digital signal processing, on the other hand, is to generate the frequency spectrum of filtered digital signal for pattern analysis, and further utilize Continuous Fourier Transform, Fast Fourier Transform, or Finite Impulse Response to develop an algorithm that discerns signals of crying and of babbling.
+
+<img width="832" alt="image" src="https://user-images.githubusercontent.com/100540403/209318564-90f98585-b6ed-4794-b138-9b9138894e79.png">
+<img width="821" alt="image" src="https://user-images.githubusercontent.com/100540403/209318594-04a261db-ea62-40ff-a078-a2739c597586.png">
+<img width="808" alt="image" src="https://user-images.githubusercontent.com/100540403/209318607-6acb1a21-3493-4f66-bdaa-787df5ae96e9.png">
+
+
+
+Digital signal processor, in the next stage, consists of two elements, digital filtering and digital signal processing. Digital filtering is to further reduce noise and smooth the signal output from ADC, such as by a digitized Butterworth low pass filter. Digital signal processing, on the other hand, is to generate the frequency spectrum of filtered digital signal for pattern analysis, and further utilize Continuous Fourier Transform, Fast Fourier Transform, or Finite Impulse Response to develop an algorithm that discerns signals of crying and of babbling.
