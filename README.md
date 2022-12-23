@@ -11,6 +11,8 @@ languages used:
     Tasks: ongoing
 
 
+<img width="792" alt="image" src="https://user-images.githubusercontent.com/100540403/209315718-fb5747c2-73e3-40da-b5c8-a8222c0cca0c.png">
+
 Sound processing:
 
 In order for sound detection to be meaningful and useful in the context of baby monitoring, our system should be able to differentiate between crying sounds, babbling sounds, and noise inside the room where the baby lies so that the care person(s) using the monitor can be alerted of the state of the baby in real-time. One way to make that distinction is through fundamental frequency and the frequency spectrum of the harmonics.
