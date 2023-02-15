@@ -13,7 +13,7 @@ languages used:
 
 <img width="792" alt="image" src="https://user-images.githubusercontent.com/100540403/209315718-fb5747c2-73e3-40da-b5c8-a8222c0cca0c.png">
 
-Sound processing:
+# Sound processing:
 
 In order for sound detection to be meaningful and useful in the context of baby monitoring, our system should be able to differentiate between crying sounds, babbling sounds, and noise inside the room where the baby lies so that the care person(s) using the monitor can be alerted of the state of the baby in real-time. One way to make that distinction is through fundamental frequency and the frequency spectrum of the harmonics.
 
@@ -38,3 +38,20 @@ Digital signal processor, in the next stage, consists of two elements, digital f
 
 
 Digital signal processor, in the next stage, consists of two elements, digital filtering and digital signal processing. Digital filtering is to further reduce noise and smooth the signal output from ADC, such as by a digitized Butterworth low pass filter. Digital signal processing, on the other hand, is to generate the frequency spectrum of filtered digital signal for pattern analysis, and further utilize Continuous Fourier Transform, Fast Fourier Transform, or Finite Impulse Response to develop an algorithm that discerns signals of crying and of babbling.
+
+
+# how to use:
+1. digitzied signal from ADC output is send to fast fourier transform, whcih is done in fftPeak.c
+    signal SAMPLES size (N) in fftPeak.c fft in each frame is 1024, default SAMPLING_RATE is 16,000;
+    fftw library is used to achieve faster speed and lower power consumption
+    with frequency spectrum calculated in fft, peaks can be found absed on power comparison and are saved into freuqency array
+    frequency array contains the f0 and its harmonics
+2. vowels and consonants can be distinguish in a cepstrum domain, yet as phonectics recognition is not the main goal for the project,
+    we implement a simplied version that only counts the occurance of consonants to avoid false cry detection triggered by closely related vowels
+
+3. to be optimized: 
+    Overlap-save fft w/ zero-padded FIR filter implementation
+    check the aperture time and sampling rate is safe
+4. implement the cry identification algorithm
+    by using the same logic demonstrated in labview: identifying the pitch, number of peaks, and the range
+5. integrate ZCR and STE into the algorithm as relative parameter features
