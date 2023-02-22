@@ -25,7 +25,6 @@
 static const char *TAG = "espnow_recv";
 
 static uint8_t broadcast_mac[ESP_NOW_ETH_ALEN] = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
-static uint8_t esp_now_send_buf[ESPNOW_MAX_SEND_BYTE];
 static StreamBufferHandle_t network_stream_buf;
 
 /* WiFi should start before using ESPNOW */
