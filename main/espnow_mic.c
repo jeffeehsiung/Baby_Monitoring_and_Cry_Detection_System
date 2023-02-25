@@ -60,7 +60,6 @@ static const char* TAG = "espnow_mic";
 // define max read buffer size
 #define READ_BUF_SIZE_BYTES       (250)
 
-
 static uint8_t mic_read_buf[READ_BUF_SIZE_BYTES];
 static uint8_t audio_output_buf[READ_BUF_SIZE_BYTES];
 
@@ -186,6 +185,76 @@ esp_err_t i2s_audio_init (void){
     i2s_common_config();
     esp_log_level_set("I2S", ESP_LOG_INFO);
     return ESP_OK;
+}
+
+// i2s dac playback task
+void i2s_dac_playback_task_new(void* task_param) {
+    mount_sdcard();
+
+    // Use POSIX and C standard library functions to work with files.
+    int flash_wr_size = 0;
+    int rec_time = 10; // seconds
+
+    char wav_header_fmt[WAVE_HEADER_SIZE];
+
+    uint32_t flash_rec_size = BYTE_RATE * rec_time;
+    generate_wav_header(wav_header_fmt, flash_rec_size, I2S_SAMPLE_RATE);
+
+    // First check if file exists before creating a new file.
+    struct stat st;
+    if (stat(SD_MOUNT_POINT "/record.wav", &st) == 0)
+    {
+        // Delete it if it exists
+        unlink(SD_MOUNT_POINT "/record.wav");
+    }
+
+    // Create new WAV file
+    FILE *f = fopen(SD_MOUNT_POINT "/record.wav", "a");
+    if (f == NULL)
+    {
+        ESP_LOGE(TAG, "Failed to open file for writing");
+        vTaskDelete(NULL);
+    }
+
+    // Write the header to the WAV file
+    fwrite(wav_header_fmt, 1, WAVE_HEADER_SIZE, f);
+    /** -------------------------------------------------------*/
+
+    StreamBufferHandle_t net_stream_buf = (StreamBufferHandle_t)task_param;
+    size_t bytes_written = 0;
+    TickType_t ticks_to_wait = 100; // wait 100 ticks for the net_stream_buf to be available
+    while (flash_wr_size < flash_rec_size) {
+        size_t num_bytes = xStreamBufferReceive(net_stream_buf, (void*)audio_output_buf,sizeof(audio_output_buf), portMAX_DELAY);
+        if (num_bytes > 0) {
+            ESP_LOGI(TAG, "Read %d bytes from net_stream_buf", num_bytes);
+            // process data and scale to 8bit for I2S DAC.
+            // i2s_adc_data_scale(audio_output_buf, audio_output_buf, num_bytes);
+            // send data to i2s dac
+            // esp_err_t err = i2s_write(EXAMPLE_I2S_NUM, audio_output_buf, num_bytes, &bytes_written, portMAX_DELAY);
+            // if (err != ESP_OK) {
+            //     ESP_LOGE(TAG, "Error writing to i2s dac: %d", errno);
+            // }
+            // else {
+            //     ESP_LOGI(TAG, "Sent %d bytes to i2s dac", num_bytes);
+            // }
+            fwrite(audio_output_buf, 1, num_bytes, f);
+            flash_wr_size += num_bytes;
+        }
+        else {
+            ESP_LOGE(TAG, "Error reading %d bytes from net_stream_buf", num_bytes);
+        }
+    }
+    ESP_LOGI(TAG, "Recording done!");
+    fclose(f);
+    ESP_LOGI(TAG, "File written on SDCard");
+
+    // All done, unmount partition and disable SPI peripheral
+    esp_vfs_fat_sdcard_unmount(SD_MOUNT_POINT, card);
+    ESP_LOGI(TAG, "Card unmounted");
+    // Deinitialize the bus after all devices are removed
+    spi_bus_free(host.slot);
+    // delete task after recording
+    vTaskDelete(NULL);
 }
 
 /* call the init_auidio function for starting adc and filling the buf -second */
