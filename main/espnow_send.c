@@ -121,7 +121,7 @@ void init_transmit(StreamBufferHandle_t mic_stream_buf){
     init_non_volatile_storage();
     espnow_wifi_init();
     espnow_init();
-    xTaskCreate(espnow_send_task, "espnow_send_task", 2048, (void*) mic_stream_buf, 4, NULL); // create another thread to send data
+    xTaskCreate(espnow_send_task, "espnow_send_task", 4096, (void*) mic_stream_buf, 4, NULL); // create another thread to send data
 }
 
 

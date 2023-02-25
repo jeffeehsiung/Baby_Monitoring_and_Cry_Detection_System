@@ -88,26 +88,6 @@ void i2s_common_config(void)
      i2s_set_dac_mode(I2S_DAC_CHANNEL_BOTH_EN); // enable both I2S built-in DAC channels L/R, maps to DAC channel 1 on GPIO25 & GPIO26
 }
 
-// // adc reading calibration task
-// void adc_cali_read_task(void* task_param)
-// {
-//     adc1_config_width(ADC_WIDTH_BIT_12);
-//     adc1_config_channel_atten(ADC1_TEST_CHANNEL, ADC_ATTEN_DB_11);
-//     esp_adc_cal_characteristics_t characteristics;
-//     esp_adc_cal_characterize(ADC_UNIT_1, ADC_ATTEN_DB_11, ADC_WIDTH_BIT_12, V_REF, &characteristics);
-//     while(true) {
-//         uint32_t voltage;
-//         vTaskDelay(200 / portTICK_PERIOD_MS);
-//         // use errno to check if the adc_calibrate function is successful
-//         if (esp_adc_cal_get_voltage(ADC1_TEST_CHANNEL, &characteristics, &voltage) == ESP_OK) {
-//             ESP_LOGI(TAG, "%"PRIu32" mV", voltage);
-//         }else{
-//             ESP_LOGE(TAG, "adc_calibrate failed");
-//         }
-//     }
-// }
-
-
 
 // i2s adc capture task
 void i2s_adc_capture_task(void* task_param)
@@ -156,6 +136,7 @@ void i2s_adc_data_scale(uint8_t * des_buff, uint8_t* src_buff, uint32_t len)
         des_buff[j++] = dac_value * 256 / 4096;
     }
 #endif
+
 }
 
 // // i2s dac playback task
@@ -196,11 +177,11 @@ esp_err_t init_audio(StreamBufferHandle_t mic_stream_buf, StreamBufferHandle_t n
     i2s_audio_init();
 
     /* thread for adc and filling the buf for the transmitter */
-    xTaskCreate(i2s_adc_capture_task, "i2s_adc_capture_task", 2048, (void*) mic_stream_buf, 4, NULL); 
+    xTaskCreate(i2s_adc_capture_task, "i2s_adc_capture_task", 4096, (void*) mic_stream_buf, 4, NULL); 
     /* thread for filling the buf for the reciever and dac */
-    // xTaskCreate(i2s_dac_playback_task, "i2s_dac_playback_task", 2048, (void*) network_stream_buf, 4, NULL);
+    // xTaskCreate(i2s_dac_playback_task, "i2s_dac_playback_task", 4096, (void*) network_stream_buf, 4, NULL);
     /* adc analog voltage calibration */
-    // xTaskCreate(adc_cali_read_task, "adc_cali_read_task", 2048, NULL, 4, NULL);
+    // xTaskCreate(adc_cali_read_task, "adc_cali_read_task", 4096, NULL, 4, NULL);
 
     return ESP_OK;
 }
