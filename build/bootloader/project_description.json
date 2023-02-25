@@ -1,22 +1,25 @@
 {
     "project_name":       "bootloader",
-    "project_path":       "/Users/jeffeehsiung/esp/esp-idf/components/bootloader/subproject",
-    "build_dir":          "/Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/bootloader",
-    "config_file":        "/Users/jeffeehsiung/Desktop/Esp32/espnow_public/sdkconfig",
+    "project_path":       "C:/Users/dell/esp/esp-idf/components/bootloader/subproject",
+    "build_dir":          "C:/Users/dell/Desktop/3-2/EE3/2202_espnow_new/baby-cry-detector/build/bootloader",
+    "config_file":        "C:/Users/dell/Desktop/3-2/EE3/2202_espnow_new/baby-cry-detector/sdkconfig",
     "config_defaults":    "",
+    "bootloader_elf":     "",
     "app_elf":            "bootloader.elf",
     "app_bin":            "bootloader.bin",
-    "git_revision":       "v5.0-dirty",
+    "git_revision":       "v5.0.1",
     "target":             "esp32",
     "rev":                "0",
+    "min_rev":            "0",
+    "max_rev":            "399",
     "phy_data_partition": "",
     "monitor_baud" :      "115200",
     "monitor_toolprefix": "xtensa-esp32-elf-",
     "config_environment" : {
-        "COMPONENT_KCONFIGS" : "/Users/jeffeehsiung/esp/esp-idf/components/efuse/Kconfig;/Users/jeffeehsiung/esp/esp-idf/components/esp_common/Kconfig;/Users/jeffeehsiung/esp/esp-idf/components/esp_hw_support/Kconfig;/Users/jeffeehsiung/esp/esp-idf/components/esp_system/Kconfig;/Users/jeffeehsiung/esp/esp-idf/components/freertos/Kconfig;/Users/jeffeehsiung/esp/esp-idf/components/hal/Kconfig;/Users/jeffeehsiung/esp/esp-idf/components/log/Kconfig;/Users/jeffeehsiung/esp/esp-idf/components/newlib/Kconfig;/Users/jeffeehsiung/esp/esp-idf/components/spi_flash/Kconfig",
-        "COMPONENT_KCONFIGS_PROJBUILD" : "/Users/jeffeehsiung/esp/esp-idf/components/bootloader/Kconfig.projbuild;/Users/jeffeehsiung/esp/esp-idf/components/esp_app_format/Kconfig.projbuild;/Users/jeffeehsiung/esp/esp-idf/components/esp_rom/Kconfig.projbuild;/Users/jeffeehsiung/esp/esp-idf/components/esptool_py/Kconfig.projbuild;/Users/jeffeehsiung/esp/esp-idf/components/partition_table/Kconfig.projbuild"
+        "COMPONENT_KCONFIGS" : "C:/Users/dell/esp/esp-idf/components/efuse/Kconfig;C:/Users/dell/esp/esp-idf/components/esp_common/Kconfig;C:/Users/dell/esp/esp-idf/components/esp_hw_support/Kconfig;C:/Users/dell/esp/esp-idf/components/esp_system/Kconfig;C:/Users/dell/esp/esp-idf/components/freertos/Kconfig;C:/Users/dell/esp/esp-idf/components/hal/Kconfig;C:/Users/dell/esp/esp-idf/components/log/Kconfig;C:/Users/dell/esp/esp-idf/components/newlib/Kconfig;C:/Users/dell/esp/esp-idf/components/spi_flash/Kconfig",
+        "COMPONENT_KCONFIGS_PROJBUILD" : "C:/Users/dell/esp/esp-idf/components/bootloader/Kconfig.projbuild;C:/Users/dell/esp/esp-idf/components/esp_app_format/Kconfig.projbuild;C:/Users/dell/esp/esp-idf/components/esp_rom/Kconfig.projbuild;C:/Users/dell/esp/esp-idf/components/esptool_py/Kconfig.projbuild;C:/Users/dell/esp/esp-idf/components/partition_table/Kconfig.projbuild"
     },
     "build_components" : [ "bootloader", "bootloader_support", "efuse", "esp_app_format", "esp_common", "esp_hw_support", "esp_rom", "esp_system", "esptool_py", "freertos", "hal", "log", "main", "micro-ecc", "newlib", "partition_table", "soc", "spi_flash", "xtensa", "" ],
-    "build_component_paths" : [ "/Users/jeffeehsiung/esp/esp-idf/components/bootloader", "/Users/jeffeehsiung/esp/esp-idf/components/bootloader_support", "/Users/jeffeehsiung/esp/esp-idf/components/efuse", "/Users/jeffeehsiung/esp/esp-idf/components/esp_app_format", "/Users/jeffeehsiung/esp/esp-idf/components/esp_common", "/Users/jeffeehsiung/esp/esp-idf/components/esp_hw_support", "/Users/jeffeehsiung/esp/esp-idf/components/esp_rom", "/Users/jeffeehsiung/esp/esp-idf/components/esp_system", "/Users/jeffeehsiung/esp/esp-idf/components/esptool_py", "/Users/jeffeehsiung/esp/esp-idf/components/freertos", "/Users/jeffeehsiung/esp/esp-idf/components/hal", "/Users/jeffeehsiung/esp/esp-idf/components/log", "/Users/jeffeehsiung/esp/esp-idf/components/bootloader/subproject/main", "/Users/jeffeehsiung/esp/esp-idf/components/bootloader/subproject/components/micro-ecc", "/Users/jeffeehsiung/esp/esp-idf/components/newlib", "/Users/jeffeehsiung/esp/esp-idf/components/partition_table", "/Users/jeffeehsiung/esp/esp-idf/components/soc", "/Users/jeffeehsiung/esp/esp-idf/components/spi_flash", "/Users/jeffeehsiung/esp/esp-idf/components/xtensa", "" ],
+    "build_component_paths" : [ "C:/Users/dell/esp/esp-idf/components/bootloader", "C:/Users/dell/esp/esp-idf/components/bootloader_support", "C:/Users/dell/esp/esp-idf/components/efuse", "C:/Users/dell/esp/esp-idf/components/esp_app_format", "C:/Users/dell/esp/esp-idf/components/esp_common", "C:/Users/dell/esp/esp-idf/components/esp_hw_support", "C:/Users/dell/esp/esp-idf/components/esp_rom", "C:/Users/dell/esp/esp-idf/components/esp_system", "C:/Users/dell/esp/esp-idf/components/esptool_py", "C:/Users/dell/esp/esp-idf/components/freertos", "C:/Users/dell/esp/esp-idf/components/hal", "C:/Users/dell/esp/esp-idf/components/log", "C:/Users/dell/esp/esp-idf/components/bootloader/subproject/main", "C:/Users/dell/esp/esp-idf/components/bootloader/subproject/components/micro-ecc", "C:/Users/dell/esp/esp-idf/components/newlib", "C:/Users/dell/esp/esp-idf/components/partition_table", "C:/Users/dell/esp/esp-idf/components/soc", "C:/Users/dell/esp/esp-idf/components/spi_flash", "C:/Users/dell/esp/esp-idf/components/xtensa", "" ],
     "debug_prefix_map_gdbinit": ""
 }

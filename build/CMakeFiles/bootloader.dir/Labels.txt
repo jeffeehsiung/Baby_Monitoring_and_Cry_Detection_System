@@ -1,13 +1,13 @@
 # Target labels
  bootloader
 # Source files and their labels
-/Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/CMakeFiles/bootloader
-/Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/CMakeFiles/bootloader.rule
-/Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/CMakeFiles/bootloader-complete.rule
-/Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule
-/Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule
-/Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule
-/Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule
-/Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule
-/Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule
-/Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule
+C:/Users/dell/Desktop/3-2/EE3/2202_espnow_new/baby-cry-detector/build/CMakeFiles/bootloader
+C:/Users/dell/Desktop/3-2/EE3/2202_espnow_new/baby-cry-detector/build/CMakeFiles/bootloader.rule
+C:/Users/dell/Desktop/3-2/EE3/2202_espnow_new/baby-cry-detector/build/CMakeFiles/bootloader-complete.rule
+C:/Users/dell/Desktop/3-2/EE3/2202_espnow_new/baby-cry-detector/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule
+C:/Users/dell/Desktop/3-2/EE3/2202_espnow_new/baby-cry-detector/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule
+C:/Users/dell/Desktop/3-2/EE3/2202_espnow_new/baby-cry-detector/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule
+C:/Users/dell/Desktop/3-2/EE3/2202_espnow_new/baby-cry-detector/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule
+C:/Users/dell/Desktop/3-2/EE3/2202_espnow_new/baby-cry-detector/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule
+C:/Users/dell/Desktop/3-2/EE3/2202_espnow_new/baby-cry-detector/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule
+C:/Users/dell/Desktop/3-2/EE3/2202_espnow_new/baby-cry-detector/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule

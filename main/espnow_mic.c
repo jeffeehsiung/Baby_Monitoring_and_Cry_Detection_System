@@ -194,11 +194,11 @@ esp_err_t init_audio(StreamBufferHandle_t mic_stream_buf, StreamBufferHandle_t n
     i2s_audio_init();
 
     /* thread for adc and filling the buf for the transmitter */
-    xTaskCreate(i2s_adc_capture_task, "i2s_adc_capture_task", 4096, (void*) mic_stream_buf, 4, NULL); 
+    xTaskCreate(i2s_adc_capture_task, "i2s_adc_capture_task", 2048, (void*) mic_stream_buf, 4, NULL); 
     /* thread for filling the buf for the reciever and dac */
-    xTaskCreate(i2s_dac_playback_task, "i2s_dac_playback_task", 4096, (void*) network_stream_buf, 4, NULL);
+    // xTaskCreate(i2s_dac_playback_task, "i2s_dac_playback_task", 2048, (void*) network_stream_buf, 4, NULL);
     /* adc analog voltage calibration */
-    xTaskCreate(adc_cali_read_task, "adc_cali_read_task", 4096, NULL, 4, NULL);
+    // xTaskCreate(adc_cali_read_task, "adc_cali_read_task", 2048, NULL, 4, NULL);
 
     return ESP_OK;
 }
