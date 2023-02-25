@@ -10,6 +10,7 @@
     "stream_buffer.h": "c",
     "stdio.h": "c",
     "espnow_recv.h": "c",
-    "netfwd": "c"
+    "netfwd": "c",
+    "esp_vfs_fat.h": "c"
   }
 }

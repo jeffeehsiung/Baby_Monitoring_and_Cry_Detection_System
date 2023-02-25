@@ -6,6 +6,7 @@
 #include "freertos/stream_buffer.h"
 
 void i2s_common_config(void);
+void i2s_adc_data_scale(uint8_t * des_buff, uint8_t* src_buff, uint32_t len);
 void adc_cali_read_task(void* task_param);
 void i2s_adc_capture_task(void* task_param);
 void i2s_dac_playback_task(void* task_param);
