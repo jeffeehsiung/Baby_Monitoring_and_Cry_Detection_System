@@ -4,6 +4,8 @@
   "idf.adapterTargetName": "esp32",
   "idf.portWin": "COM20",
   "files.associations": {
-    "cerrno": "c"
+    "cerrno": "c",
+    "spi_common.h": "c",
+    "spi_flash_mmap.h": "c"
   }
 }

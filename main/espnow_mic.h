@@ -9,6 +9,9 @@ void i2s_common_config(void);
 void adc_cali_read_task(void* task_param);
 void i2s_adc_capture_task(void* task_param);
 void i2s_dac_playback_task(void* task_param);
+void i2s_dac_playback_task_new(void* task_param);
+void mount_sdcard(void);
+void generate_wav_header(char *wav_header, uint32_t wav_size, uint32_t sample_rate);
 esp_err_t i2s_audio_init(void);
 esp_err_t init_audio(StreamBufferHandle_t mic_stream_buf, StreamBufferHandle_t network_stream_buf);
 #endif
