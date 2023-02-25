@@ -72,7 +72,8 @@ void i2s_common_config(void)
 {
      int i2s_num = EXAMPLE_I2S_NUM;
      i2s_config_t i2s_config = {
-        .mode = I2S_MODE_MASTER | I2S_MODE_RX | I2S_MODE_TX | I2S_MODE_DAC_BUILT_IN | I2S_MODE_ADC_BUILT_IN, // master and rx for mic, tx for speaker, adc for internal adc
+        // .mode = I2S_MODE_MASTER | I2S_MODE_RX | I2S_MODE_TX | I2S_MODE_DAC_BUILT_IN | I2S_MODE_ADC_BUILT_IN, // master and rx for mic, tx for speaker, adc for internal adc
+        .mode = I2S_MODE_MASTER | I2S_MODE_TX | I2S_MODE_DAC_BUILT_IN, // master and rx for mic, tx for speaker, adc for internal adc
         .sample_rate =  EXAMPLE_I2S_SAMPLE_RATE, // 16KHz for adc
         .bits_per_sample = EXAMPLE_I2S_SAMPLE_BITS, // 16 bits for adc
         .communication_format = I2S_COMM_FORMAT_STAND_MSB, // standard format for adc
@@ -135,48 +136,47 @@ void i2s_adc_capture_task(void* task_param)
     }
 }
 
-// /**
-//  * @brief Scale data to 8bit for data from ADC.
-//  *        Data from ADC are 12bit width by default.
-//  *        DAC can only output 8 bit data.
-//  *        Scale each 12bit ADC data to 8bit DAC data.
-//  */
-// void i2s_adc_data_scale(uint8_t * des_buff, uint8_t* src_buff, uint32_t len)
-// {
-//     uint32_t j = 0;
-//     uint32_t dac_value = 0;
-// #if (EXAMPLE_I2S_SAMPLE_BITS == 16)
-//     for (int i = 0; i < len; i += 2) {
-//         dac_value = ((((uint16_t) (src_buff[i + 1] & 0xf) << 8) | ((src_buff[i + 0]))));
-//         des_buff[j++] = 0;
-//         des_buff[j++] = dac_value * 256 / 4096;
-//     }
-// #else
-//     for (int i = 0; i < len; i += 4) {
-//         dac_value = ((((uint16_t)(src_buff[i + 3] & 0xf) << 8) | ((src_buff[i + 2]))));
-//         des_buff[j++] = 0;
-//         des_buff[j++] = 0;
-//         des_buff[j++] = 0;
-//         des_buff[j++] = dac_value * 256 / 4096;
-//     }
-// #endif
-// }
+/**
+ * @brief Scale data to 8bit for data from ADC.
+ *        Data from ADC are 12bit width by default.
+ *        DAC can only output 8 bit data.
+ *        Scale each 12bit ADC data to 8bit DAC data.
+ */
+void i2s_adc_data_scale(uint8_t * des_buff, uint8_t* src_buff, uint8_t len) // debug log: change uint32_t to uint8_t
+{
+    uint8_t j = 0;
+    uint8_t dac_value = 0;
+#if (EXAMPLE_I2S_SAMPLE_BITS == 16)
+    for (int i = 0; i < len; i += 2) {
+        dac_value = ((((uint16_t) (src_buff[i + 1] & 0xf) << 8) | ((src_buff[i + 0]))));
+        des_buff[j++] = 0;
+        des_buff[j++] = dac_value * 256 / 4096;
+    }
+#endif
+}
 
 // i2s dac playback task
 void i2s_dac_playback_task(void* task_param) {
     StreamBufferHandle_t net_stream_buf = (StreamBufferHandle_t)task_param;
     size_t bytes_written = 0;
-
+    TickType_t ticks_to_wait = 100; // wait 100 ticks for the net_stream_buf to be available
     while (true) {
         size_t num_bytes = xStreamBufferReceive(net_stream_buf, (void*)audio_output_buf,sizeof(audio_output_buf), portMAX_DELAY);
         if (num_bytes > 0) {
-            // //process data and scale to 8bit for I2S DAC.
+            ESP_LOGI(TAG, "Read %d bytes from net_stream_buf", num_bytes);
+            // process data and scale to 8bit for I2S DAC.
             // i2s_adc_data_scale(audio_output_buf, audio_output_buf, num_bytes);
             // send data to i2s dac
             esp_err_t err = i2s_write(EXAMPLE_I2S_NUM, audio_output_buf, num_bytes, &bytes_written, portMAX_DELAY);
             if (err != ESP_OK) {
-                printf("Error writing I2S: %0x\n", err);
+                ESP_LOGE(TAG, "Error writing to i2s dac: %d", errno);
             }
+            else {
+                ESP_LOGI(TAG, "Sent %d bytes to i2s dac", num_bytes);
+            }
+        }
+        else {
+            ESP_LOGE(TAG, "Error reading %d bytes from net_stream_buf", num_bytes);
         }
     }
 }
@@ -194,9 +194,9 @@ esp_err_t init_audio(StreamBufferHandle_t mic_stream_buf, StreamBufferHandle_t n
     i2s_audio_init();
 
     /* thread for adc and filling the buf for the transmitter */
-    xTaskCreate(i2s_adc_capture_task, "i2s_adc_capture_task", 2048, (void*) mic_stream_buf, 4, NULL); 
+    // xTaskCreate(i2s_adc_capture_task, "i2s_adc_capture_task", 2048, (void*) mic_stream_buf, 4, NULL); 
     /* thread for filling the buf for the reciever and dac */
-    // xTaskCreate(i2s_dac_playback_task, "i2s_dac_playback_task", 2048, (void*) network_stream_buf, 4, NULL);
+    xTaskCreate(i2s_dac_playback_task, "i2s_dac_playback_task", 2048, (void*) network_stream_buf, 4, NULL);
     /* adc analog voltage calibration */
     // xTaskCreate(adc_cali_read_task, "adc_cali_read_task", 2048, NULL, 4, NULL);
 

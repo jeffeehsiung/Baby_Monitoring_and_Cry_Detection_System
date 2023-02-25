@@ -10,13 +10,15 @@ static StreamBufferHandle_t network_stream_buf; // only for reciever
 
 void app_main(void) {
     mic_stream_buf = xStreamBufferCreate(512, 1);
+    network_stream_buf = xStreamBufferCreate(512, 1);
 
-    // init_transmit(mic_stream_buf);
     init_audio(mic_stream_buf, network_stream_buf);
+    // init_transmit(mic_stream_buf);
+    // init_audio(mic_stream_buf, network_stream_buf);
     init_recv(network_stream_buf);
     
     // Loopback testing
-    // init_audio(mic_stream_buf, mic_stream_buf);
+    
 
     while (true) {
         printf("Hello world!\n");

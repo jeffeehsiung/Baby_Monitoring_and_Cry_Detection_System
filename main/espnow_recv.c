@@ -107,5 +107,6 @@ void init_recv(StreamBufferHandle_t net_stream_buf){
     init_non_volatile_storage();
     espnow_wifi_init();
     espnow_init();
+    ESP_ERROR_CHECK( esp_now_register_recv_cb(espnow_recv_task));
 }
 
