@@ -64,7 +64,7 @@ static uint8_t audio_output_buf[READ_BUF_SIZE_BYTES];
 #define SPI_CS_GPIO 5
 #define SD_MOUNT_POINT "/sdcard"
 #define NUM_CHANNELS 1
-#define BYTE_RATE (EXAMPLE_I2S_SAMPLE_RATE * (EXAMPLE_I2S_SAMPLE_BITS / 8)) * NUM_CHANNELS
+#define BYTE_RATE (EXAMPLE_I2S_SAMPLE_RATE * (8 / 8)) * NUM_CHANNELS
 
 // When testing SD and SPI modes, keep in mind that once the card has been
 // initialized in SPI mode, it can not be reinitialized in SD mode without
@@ -246,7 +246,7 @@ void i2s_dac_playback_task_new(void* task_param) {
     mount_sdcard();
     // Use POSIX and C standard library functions to work with files.
     int flash_wr_size = 0;
-    int rec_time = 10; // seconds
+    int rec_time = 5; // seconds
     char wav_header_fmt[WAVE_HEADER_SIZE];
     uint32_t flash_rec_size = BYTE_RATE * rec_time;
     generate_wav_header(wav_header_fmt, flash_rec_size, EXAMPLE_I2S_SAMPLE_RATE);
