@@ -55,6 +55,7 @@ static const char* TAG = "espnow_mic";
 #define READ_BUF_SIZE_BYTES       (250)
 
 static uint8_t mic_read_buf[READ_BUF_SIZE_BYTES];
+static uint8_t dac_output_buf[READ_BUF_SIZE_BYTES * 100];
 static uint8_t audio_output_buf[READ_BUF_SIZE_BYTES];
 
 /** ----------------------SD CARD---------------------------------*/
@@ -64,7 +65,7 @@ static uint8_t audio_output_buf[READ_BUF_SIZE_BYTES];
 #define SPI_CS_GPIO 5
 #define SD_MOUNT_POINT "/sdcard"
 #define NUM_CHANNELS 1
-#define BYTE_RATE (EXAMPLE_I2S_SAMPLE_RATE * (8 / 8)) * NUM_CHANNELS
+#define BYTE_RATE (EXAMPLE_I2S_SAMPLE_RATE * (16 / 8)) * NUM_CHANNELS
 
 // When testing SD and SPI modes, keep in mind that once the card has been
 // initialized in SPI mode, it can not be reinitialized in SD mode without
@@ -213,13 +214,13 @@ void i2s_dac_playback_task(void* task_param) {
     size_t bytes_written = 0;
     TickType_t ticks_to_wait = 100; // wait 100 ticks for the net_stream_buf to be available
     while (true) {
-        size_t num_bytes = xStreamBufferReceive(net_stream_buf, (void*)audio_output_buf,sizeof(audio_output_buf), portMAX_DELAY);
+        size_t num_bytes = xStreamBufferReceive(net_stream_buf, (void*)dac_output_buf, 100 * READ_BUF_SIZE_BYTES * sizeof(char), portMAX_DELAY);
         if (num_bytes > 0) {
             ESP_LOGI(TAG, "Read %d bytes from net_stream_buf", num_bytes);
             // process data and scale to 8bit for I2S DAC.
             // i2s_adc_data_scale(audio_output_buf, audio_output_buf, num_bytes);
             // send data to i2s dac
-            esp_err_t err = i2s_write(EXAMPLE_I2S_NUM, audio_output_buf, num_bytes, &bytes_written, portMAX_DELAY);
+            esp_err_t err = i2s_write(EXAMPLE_I2S_NUM, dac_output_buf, 6000 * sizeof(char), &bytes_written, portMAX_DELAY);
             if (err != ESP_OK) {
                 ESP_LOGE(TAG, "Error writing to i2s dac: %d", errno);
             }
@@ -273,7 +274,7 @@ void i2s_dac_playback_task_new(void* task_param) {
     size_t bytes_written = 0;
     TickType_t ticks_to_wait = 100; // wait 100 ticks for the net_stream_buf to be available
     while (flash_wr_size < flash_rec_size) {
-        size_t num_bytes = xStreamBufferReceive(net_stream_buf, (void*)audio_output_buf,sizeof(audio_output_buf), ticks_to_wait);
+        size_t num_bytes = xStreamBufferReceive(net_stream_buf, (void*)audio_output_buf, READ_BUF_SIZE_BYTES * sizeof(char), ticks_to_wait);
         if (num_bytes > 0) {
             ESP_LOGI(TAG, "Read %d bytes from net_stream_buf", num_bytes);
             // process data and scale to 8bit for I2S DAC.
@@ -288,12 +289,17 @@ void i2s_dac_playback_task_new(void* task_param) {
             // }
             fwrite(audio_output_buf, 1, num_bytes, f);
             flash_wr_size += num_bytes;
-            ESP_LOGI(TAG, "Wrote %d/%ld bytes to file - %ld%%", flash_wr_size, flash_rec_size, (flash_wr_size * 100) / flash_rec_size);
+            // ESP_LOGI(TAG, "Wrote %d/%ld bytes to file - %ld%%", flash_wr_size, flash_rec_size, (flash_wr_size * 100) / flash_rec_size);
+        }
+        else if (flash_wr_size < flash_rec_size/5) {
+            ESP_LOGE(TAG, "Error reading %d bytes from net_stream_buf", num_bytes);
         }
         else {
+            break;
             ESP_LOGE(TAG, "Error reading %d bytes from net_stream_buf", num_bytes);
         }
     }
+    ESP_LOGI(TAG, "Wrote %d/%ld bytes to file - %ld%%", flash_wr_size, flash_rec_size, (flash_wr_size * 100) / flash_rec_size);
     ESP_LOGI(TAG, "Recording done!");
     fclose(f);
     ESP_LOGI(TAG, "File written on SDCard");
@@ -315,7 +321,7 @@ esp_err_t init_audio(StreamBufferHandle_t mic_stream_buf, StreamBufferHandle_t n
     /* thread for adc and filling the buf for the transmitter */
     // xTaskCreate(i2s_adc_capture_task, "i2s_adc_capture_task", 2048, (void*) mic_stream_buf, 4, NULL); 
     /* thread for filling the buf for the reciever and dac */
-    xTaskCreate(i2s_dac_playback_task_new, "i2s_dac_playback_task", 4096, (void*) network_stream_buf, 4, NULL);
+    xTaskCreate(i2s_dac_playback_task, "i2s_dac_playback_task", 4096, (void*) network_stream_buf, 4, NULL);
     /* adc analog voltage calibration */
     // xTaskCreate(adc_cali_read_task, "adc_cali_read_task", 2048, NULL, 4, NULL);
 

@@ -2,15 +2,14 @@
 #include "freertos/task.h"
 #include <stdio.h>
 #include "espnow_mic.h"
-#include "espnow_send.h"
 #include "espnow_recv.h"
 
 static StreamBufferHandle_t mic_stream_buf;
 static StreamBufferHandle_t network_stream_buf; // only for reciever
 
 void app_main(void) {
-    mic_stream_buf = xStreamBufferCreate(512, 1);
-    network_stream_buf = xStreamBufferCreate(512, 1);
+    mic_stream_buf = xStreamBufferCreate(81290, 1);
+    network_stream_buf = xStreamBufferCreate(81290, 1);
 
     init_audio(mic_stream_buf, network_stream_buf);
     // init_transmit(mic_stream_buf);
