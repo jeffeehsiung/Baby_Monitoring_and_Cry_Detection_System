@@ -1,17 +1,13 @@
 #ifndef ESPNOW_MIC_H
 #define ESPNOW_MIC_H
 
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-#include "freertos/stream_buffer.h"
+#include "config.h"
 
-void i2s_common_config(void);
-void adc_cali_read_task(void* task_param);
 void i2s_adc_capture_task(void* task_param);
 void i2s_dac_playback_task(void* task_param);
 void i2s_dac_playback_task_new(void* task_param);
-void mount_sdcard(void);
-void generate_wav_header(char *wav_header, uint32_t wav_size, uint32_t sample_rate);
-esp_err_t i2s_audio_init(void);
-esp_err_t init_audio(StreamBufferHandle_t mic_stream_buf, StreamBufferHandle_t network_stream_buf);
+esp_err_t init_audio_trans(StreamBufferHandle_t mic_stream_buf);
+esp_err_t init_audio_recv(StreamBufferHandle_t network_stream_buf);
+
+
 #endif
