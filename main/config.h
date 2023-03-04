@@ -4,6 +4,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 #include <string.h>
 #include <assert.h>
 #include "esp_event.h"
@@ -13,6 +14,7 @@
 #include "esp_mac.h"
 #include "esp_now.h"
 #include "esp_crc.h"
+#include "esp_check.h"
 #include "esp_vfs_fat.h"
 #include "esp_adc_cal.h"
 #include "esp_partition.h"
@@ -21,8 +23,9 @@
 #include "esp_err.h"
 #include "errno.h"
 #include "driver/spi_common.h"
-#include "driver/i2s.h"
-#include "driver/adc.h"
+// #include "driver/i2s.h"
+#include "driver/i2s_pdm.h"
+// #include "driver/adc.h"
 #include "driver/gpio.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/semphr.h"
@@ -37,6 +40,9 @@
 #include <sys/unistd.h>
 #include <sys/stat.h>
 #include <time.h>
+
+
+
 
 /** wifi configuration */
 /* ESPNOW can work in both station and softap mode. It is configured in menuconfig. */
@@ -72,22 +78,35 @@
 //I2S read buffer length
 #define EXAMPLE_I2S_READ_LEN      (16 * 1024)
 //I2S data format
-#define EXAMPLE_I2S_FORMAT        (I2S_CHANNEL_FMT_ONLY_RIGHT)
+// #define EXAMPLE_I2S_FORMAT        (I2S_CHANNEL_FMT_ONLY_RIGHT)
 //I2S channel number
-#define EXAMPLE_I2S_CHANNEL_NUM   ((EXAMPLE_I2S_FORMAT < I2S_CHANNEL_FMT_ONLY_RIGHT) ? (2) : (1))
-//I2S built-in ADC unit
-#define I2S_ADC_UNIT              ADC_UNIT_1
-//I2S built-in ADC channel GPIO36
-#define I2S_ADC_CHANNEL           ADC1_CHANNEL_0
+// #define EXAMPLE_I2S_CHANNEL_NUM   ((EXAMPLE_I2S_FORMAT < I2S_CHANNEL_FMT_ONLY_RIGHT) ? (2) : (1))
+// //I2S built-in ADC unit
+// #define I2S_ADC_UNIT              ADC_UNIT_1
+// //I2S built-in ADC channel GPIO36
+// #define I2S_ADC_CHANNEL           ADC1_CHANNEL_0
 // I2S byte rate is 16bit * 1ch * 16000Hz / 8bit = 32000
-#define BYTE_RATE                 (EXAMPLE_I2S_CHANNEL_NUM * EXAMPLE_I2S_SAMPLE_RATE * EXAMPLE_I2S_SAMPLE_BITS / 8)
+// #define BYTE_RATE                 (EXAMPLE_I2S_CHANNEL_NUM * EXAMPLE_I2S_SAMPLE_RATE * EXAMPLE_I2S_SAMPLE_BITS / 8)
+#define BYTE_RATE                 (EXAMPLE_I2S_SAMPLE_RATE * EXAMPLE_I2S_SAMPLE_BITS / 8)
 // SPI DMA channel
 #define SPI_DMA_CHAN SPI_DMA_CH_AUTO
 // define max read buffer size
 #define READ_BUF_SIZE_BYTES       (250)
 
+// i2s speaker settings
+#define EXAMPLE_BUFF_SIZE   2048
 
-void i2s_common_config(void);
+#define EXAMPLE_PDM_TX_CLK_IO           GPIO_NUM_4      // I2S PDM TX clock io number
+#define EXAMPLE_PDM_TX_DOUT_IO          GPIO_NUM_5      // I2S PDM TX data out io number
+#define EXAMPLE_WAVE_AMPTITUDE          (1000.0)        // 1~32767
+#define CONST_PI                        (3.1416f)
+#define EXAMPLE_SINE_WAVE_LEN(tone)     (uint32_t)((EXAMPLE_I2S_SAMPLE_RATE / (float)tone) + 0.5) // The sample point number per sine wave to generate the tone
+#define EXAMPLE_TONE_LAST_TIME_MS       500
+#define EXAMPLE_BYTE_NUM_EVERY_TONE     (EXAMPLE_TONE_LAST_TIME_MS * EXAMPLE_I2S_SAMPLE_RATE / 1000)
+
+
+i2s_chan_handle_t i2s_example_init_pdm_tx(void);
+// void i2s_common_config(void);
 void init_config(void);
 
 #endif

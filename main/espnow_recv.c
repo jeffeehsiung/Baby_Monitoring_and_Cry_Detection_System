@@ -15,11 +15,13 @@ static StreamBufferHandle_t network_stream_buf;
 /* defining reciever task */
 void espnow_recv_task(const uint8_t* mac_addr, const uint8_t* data, int len) {
     // params of espnow_recv_task is recieved from esp_now_send(mac_addr, buffer, len)
-    if(xStreamBufferSend(network_stream_buf, data, len, portMAX_DELAY) != len){
+    size_t num_bytes = xStreamBufferSend(network_stream_buf, data, len, portMAX_DELAY);
+    if( num_bytes != len){
         ESP_LOGE(TAG, "Failed to send data to network stream buffer: %d", errno);
     }else{
-        ESP_LOGI(TAG, "Sent data to network stream buffer: %d", len);
-    };
+        // ESP_LOGI(TAG, "Sent data to network stream buffer: %d", num_bytes);
+    }
+    
 }
 
 

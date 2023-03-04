@@ -87,6 +87,7 @@ The following is the hardware connection:
 |Microphone|ADC1_CH0|GPIO36|
 |speaker(R)|DAC1|GPIO25|
 |speaker(L)|DAC2|GPIO26|
+|speaker(L)|ESP32_S3|GPIO4|
 
 ### Configure the project
 

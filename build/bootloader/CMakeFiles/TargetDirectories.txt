@@ -10,6 +10,9 @@
 /Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/bootloader/CMakeFiles/size.dir
 /Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/bootloader/CMakeFiles/size-files.dir
 /Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/bootloader/CMakeFiles/size-components.dir
+/Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/bootloader/CMakeFiles/dfu.dir
+/Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/bootloader/CMakeFiles/dfu-list.dir
+/Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/bootloader/CMakeFiles/dfu-flash.dir
 /Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/bootloader/CMakeFiles/uf2-app.dir
 /Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/bootloader/CMakeFiles/uf2.dir
 /Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/bootloader/CMakeFiles/edit_cache.dir
@@ -24,8 +27,8 @@
 /Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/bootloader/esp-idf/soc/CMakeFiles/__idf_soc.dir
 /Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/bootloader/esp-idf/soc/CMakeFiles/edit_cache.dir
 /Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/bootloader/esp-idf/soc/CMakeFiles/rebuild_cache.dir
-/Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/bootloader/esp-idf/soc/esp32/CMakeFiles/edit_cache.dir
-/Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/bootloader/esp-idf/soc/esp32/CMakeFiles/rebuild_cache.dir
+/Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/bootloader/esp-idf/soc/esp32s3/CMakeFiles/edit_cache.dir
+/Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/bootloader/esp-idf/soc/esp32s3/CMakeFiles/rebuild_cache.dir
 /Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/bootloader/esp-idf/micro-ecc/CMakeFiles/__idf_micro-ecc.dir
 /Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/bootloader/esp-idf/micro-ecc/CMakeFiles/edit_cache.dir
 /Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/bootloader/esp-idf/micro-ecc/CMakeFiles/rebuild_cache.dir
@@ -56,8 +59,8 @@
 /Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/bootloader/esp-idf/esp_hw_support/CMakeFiles/__idf_esp_hw_support.dir
 /Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/bootloader/esp-idf/esp_hw_support/CMakeFiles/edit_cache.dir
 /Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/bootloader/esp-idf/esp_hw_support/CMakeFiles/rebuild_cache.dir
-/Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/bootloader/esp-idf/esp_hw_support/port/esp32/CMakeFiles/edit_cache.dir
-/Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/bootloader/esp-idf/esp_hw_support/port/esp32/CMakeFiles/rebuild_cache.dir
+/Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/bootloader/esp-idf/esp_hw_support/port/esp32s3/CMakeFiles/edit_cache.dir
+/Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/bootloader/esp-idf/esp_hw_support/port/esp32s3/CMakeFiles/rebuild_cache.dir
 /Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/bootloader/esp-idf/esp_common/CMakeFiles/__idf_esp_common.dir
 /Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/bootloader/esp-idf/esp_common/CMakeFiles/edit_cache.dir
 /Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/bootloader/esp-idf/esp_common/CMakeFiles/rebuild_cache.dir
