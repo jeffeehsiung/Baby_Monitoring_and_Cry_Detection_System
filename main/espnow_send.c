@@ -52,7 +52,6 @@ void espnow_send_task(void* task_param) {
         }
         else {
             printf("Other error reading from mic stream: %d\n", errno);
-            // exit with error code and error message
             exit(errno);
         }
         // check if the timer has reached 1 second
