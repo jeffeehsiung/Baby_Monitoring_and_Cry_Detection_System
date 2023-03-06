@@ -38,7 +38,7 @@ static const char* TAG = "espnow_mic";
 //i2s number for interface channel (0 or 1, 0 for mic and 1 for speaker)
 #define EXAMPLE_I2S_NUM           (0)
 //i2s sample rate
-#define EXAMPLE_I2S_SAMPLE_RATE   (16000)
+#define EXAMPLE_I2S_SAMPLE_RATE   (8000)
 //i2s data bits
 #define EXAMPLE_I2S_SAMPLE_BITS   (16)
 //I2S data format
@@ -220,7 +220,7 @@ void i2s_dac_playback_task(void* task_param) {
             // process data and scale to 8bit for I2S DAC.
             // i2s_adc_data_scale(audio_output_buf, audio_output_buf, num_bytes);
             // send data to i2s dac
-            esp_err_t err = i2s_write(EXAMPLE_I2S_NUM, dac_output_buf, 6000 * sizeof(char), &bytes_written, portMAX_DELAY);
+            esp_err_t err = i2s_write(EXAMPLE_I2S_NUM, dac_output_buf, 8000 * sizeof(char), &bytes_written, portMAX_DELAY);
             if (err != ESP_OK) {
                 ESP_LOGE(TAG, "Error writing to i2s dac: %d", errno);
             }
@@ -247,7 +247,7 @@ void i2s_dac_playback_task_new(void* task_param) {
     mount_sdcard();
     // Use POSIX and C standard library functions to work with files.
     int flash_wr_size = 0;
-    int rec_time = 5; // seconds
+    int rec_time = 10; // seconds
     char wav_header_fmt[WAVE_HEADER_SIZE];
     uint32_t flash_rec_size = BYTE_RATE * rec_time;
     generate_wav_header(wav_header_fmt, flash_rec_size, EXAMPLE_I2S_SAMPLE_RATE);

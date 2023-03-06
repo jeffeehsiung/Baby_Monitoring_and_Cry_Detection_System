@@ -1,0 +1,139 @@
+[0/1] Re-running CMake...
+-- ccache will be used for faster recompilation
+-- Building ESP-IDF components for target esp32
+-- Project sdkconfig file C:/Users/dell/Desktop/3-2/EE3/2202_espnow_new/baby-cry-detector/sdkconfig
+-- App "espnow_public" version: dfe27d9-dirty
+-- Adding linker script C:/Users/dell/Desktop/3-2/EE3/2202_espnow_new/baby-cry-detector/build/esp-idf/esp_system/ld/memory.ld
+-- Adding linker script C:/Users/dell/esp/esp-idf/components/esp_system/ld/esp32/sections.ld.in
+-- Adding linker script C:/Users/dell/esp/esp-idf/components/esp_rom/esp32/ld/esp32.rom.ld
+-- Adding linker script C:/Users/dell/esp/esp-idf/components/esp_rom/esp32/ld/esp32.rom.api.ld
+-- Adding linker script C:/Users/dell/esp/esp-idf/components/esp_rom/esp32/ld/esp32.rom.libgcc.ld
+-- Adding linker script C:/Users/dell/esp/esp-idf/components/esp_rom/esp32/ld/esp32.rom.newlib-data.ld
+-- Adding linker script C:/Users/dell/esp/esp-idf/components/esp_rom/esp32/ld/esp32.rom.syscalls.ld
+-- Adding linker script C:/Users/dell/esp/esp-idf/components/esp_rom/esp32/ld/esp32.rom.newlib-funcs.ld
+-- Adding linker script C:/Users/dell/esp/esp-idf/components/soc/esp32/ld/esp32.peripherals.ld
+-- Components: app_trace app_update bootloader bootloader_support bt cmock console cxx driver efuse esp-tls esp_adc esp_app_format esp_common esp_eth esp_event esp_gdbstub esp_hid esp_http_client esp_http_server esp_https_ota esp_https_server esp_hw_support esp_lcd esp_local_ctrl esp_netif esp_partition esp_phy esp_pm esp_psram esp_ringbuf esp_rom esp_system esp_timer esp_wifi espcoredump esptool_py fatfs freertos hal heap http_parser idf_test ieee802154 json log lwip main mbedtls mqtt newlib nvs_flash openthread partition_table perfmon protobuf-c protocomm pthread sdmmc soc spi_flash spiffs tcp_transport ulp unity usb vfs wear_levelling wifi_provisioning wpa_supplicant xtensa
+-- Component paths: C:/Users/dell/esp/esp-idf/components/app_trace C:/Users/dell/esp/esp-idf/components/app_update C:/Users/dell/esp/esp-idf/components/bootloader C:/Users/dell/esp/esp-idf/components/bootloader_support C:/Users/dell/esp/esp-idf/components/bt C:/Users/dell/esp/esp-idf/components/cmock C:/Users/dell/esp/esp-idf/components/console C:/Users/dell/esp/esp-idf/components/cxx C:/Users/dell/esp/esp-idf/components/driver C:/Users/dell/esp/esp-idf/components/efuse C:/Users/dell/esp/esp-idf/components/esp-tls C:/Users/dell/esp/esp-idf/components/esp_adc C:/Users/dell/esp/esp-idf/components/esp_app_format C:/Users/dell/esp/esp-idf/components/esp_common C:/Users/dell/esp/esp-idf/components/esp_eth C:/Users/dell/esp/esp-idf/components/esp_event C:/Users/dell/esp/esp-idf/components/esp_gdbstub C:/Users/dell/esp/esp-idf/components/esp_hid C:/Users/dell/esp/esp-idf/components/esp_http_client C:/Users/dell/esp/esp-idf/components/esp_http_server C:/Users/dell/esp/esp-idf/components/esp_https_ota C:/Users/dell/esp/esp-idf/components/esp_https_server C:/Users/dell/esp/esp-idf/components/esp_hw_support C:/Users/dell/esp/esp-idf/components/esp_lcd C:/Users/dell/esp/esp-idf/components/esp_local_ctrl C:/Users/dell/esp/esp-idf/components/esp_netif C:/Users/dell/esp/esp-idf/components/esp_partition C:/Users/dell/esp/esp-idf/components/esp_phy C:/Users/dell/esp/esp-idf/components/esp_pm C:/Users/dell/esp/esp-idf/components/esp_psram C:/Users/dell/esp/esp-idf/components/esp_ringbuf C:/Users/dell/esp/esp-idf/components/esp_rom C:/Users/dell/esp/esp-idf/components/esp_system C:/Users/dell/esp/esp-idf/components/esp_timer C:/Users/dell/esp/esp-idf/components/esp_wifi C:/Users/dell/esp/esp-idf/components/espcoredump C:/Users/dell/esp/esp-idf/components/esptool_py C:/Users/dell/esp/esp-idf/components/fatfs C:/Users/dell/esp/esp-idf/components/freertos C:/Users/dell/esp/esp-idf/components/hal C:/Users/dell/esp/esp-idf/components/heap C:/Users/dell/esp/esp-idf/components/http_parser C:/Users/dell/esp/esp-idf/components/idf_test C:/Users/dell/esp/esp-idf/components/ieee802154 C:/Users/dell/esp/esp-idf/components/json C:/Users/dell/esp/esp-idf/components/log C:/Users/dell/esp/esp-idf/components/lwip C:/Users/dell/Desktop/3-2/EE3/2202_espnow_new/baby-cry-detector/main C:/Users/dell/esp/esp-idf/components/mbedtls C:/Users/dell/esp/esp-idf/components/mqtt C:/Users/dell/esp/esp-idf/components/newlib C:/Users/dell/esp/esp-idf/components/nvs_flash C:/Users/dell/esp/esp-idf/components/openthread C:/Users/dell/esp/esp-idf/components/partition_table C:/Users/dell/esp/esp-idf/components/perfmon C:/Users/dell/esp/esp-idf/components/protobuf-c C:/Users/dell/esp/esp-idf/components/protocomm C:/Users/dell/esp/esp-idf/components/pthread C:/Users/dell/esp/esp-idf/components/sdmmc C:/Users/dell/esp/esp-idf/components/soc C:/Users/dell/esp/esp-idf/components/spi_flash C:/Users/dell/esp/esp-idf/components/spiffs C:/Users/dell/esp/esp-idf/components/tcp_transport C:/Users/dell/esp/esp-idf/components/ulp C:/Users/dell/esp/esp-idf/components/unity C:/Users/dell/esp/esp-idf/components/usb C:/Users/dell/esp/esp-idf/components/vfs C:/Users/dell/esp/esp-idf/components/wear_levelling C:/Users/dell/esp/esp-idf/components/wifi_provisioning C:/Users/dell/esp/esp-idf/components/wpa_supplicant C:/Users/dell/esp/esp-idf/components/xtensa
+-- Configuring done
+-- Generating done
+-- Build files have been written to: C:/Users/dell/Desktop/3-2/EE3/2202_espnow_new/baby-cry-detector/build
+[1/12] Building C object esp-idf/esp_app_format/CMakeFiles/__idf_esp_app_format.dir/esp_app_desc.c.obj
+[2/12] Linking C static library esp-idf\esp_app_format\libesp_app_format.a
+[3/12] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/espnow_mic.c.obj
+In file included from C:/Users/dell/Desktop/3-2/EE3/2202_espnow_new/baby-cry-detector/main/espnow_mic.c:11:
+C:/Users/dell/esp/esp-idf/components/esp_adc/deprecated/include/esp_adc_cal.h:17:2: warning: #warning "legacy adc calibration driver is deprecated, please migrate to use esp_adc/adc_cali.h and esp_adc/adc_cali_scheme.h" [-Wcpp]
+   17 | #warning "legacy adc calibration driver is deprecated, please migrate to use esp_adc/adc_cali.h and esp_adc/adc_cali_scheme.h"
+      |  ^~~~~~~
+In file included from C:/Users/dell/esp/esp-idf/components/driver/deprecated/driver/i2s.h:23,
+                 from C:/Users/dell/Desktop/3-2/EE3/2202_espnow_new/baby-cry-detector/main/espnow_mic.c:17:
+C:/Users/dell/esp/esp-idf/components/driver/deprecated/driver/adc.h:19:2: warning: #warning "legacy adc driver is deprecated, please migrate to use esp_adc/adc_oneshot.h and esp_adc/adc_continuous.h for oneshot mode and continuous mode drivers respectively" [-Wcpp]
+   19 | #warning "legacy adc driver is deprecated, please migrate to use esp_adc/adc_oneshot.h and esp_adc/adc_continuous.h for oneshot mode and continuous mode drivers respectively"
+      |  ^~~~~~~
+In file included from C:/Users/dell/Desktop/3-2/EE3/2202_espnow_new/baby-cry-detector/main/espnow_mic.c:17:
+C:/Users/dell/esp/esp-idf/components/driver/deprecated/driver/i2s.h:27:2: warning: #warning "This set of I2S APIs has been deprecated, please include 'driver/i2s_std.h', 'driver/i2s_pdm.h' or 'driver/i2s_tdm.h' instead. if you want to keep using the old APIs and ignore this warning, you can enable 'Suppress leagcy driver deprecated warning' option under 'I2S Configuration' menu in Kconfig" [-Wcpp]
+   27 | #warning "This set of I2S APIs has been deprecated, \
+      |  ^~~~~~~
+C:/Users/dell/Desktop/3-2/EE3/2202_espnow_new/baby-cry-detector/main/espnow_mic.c: In function 'i2s_dac_playback_task':
+C:/Users/dell/Desktop/3-2/EE3/2202_espnow_new/baby-cry-detector/main/espnow_mic.c:215:16: warning: unused variable 'ticks_to_wait' [-Wunused-variable]
+  215 |     TickType_t ticks_to_wait = 100; // wait 100 ticks for the net_stream_buf to be available
+      |                ^~~~~~~~~~~~~
+C:/Users/dell/Desktop/3-2/EE3/2202_espnow_new/baby-cry-detector/main/espnow_mic.c: In function 'i2s_dac_playback_task_new':
+C:/Users/dell/Desktop/3-2/EE3/2202_espnow_new/baby-cry-detector/main/espnow_mic.c:274:12: warning: unused variable 'bytes_written' [-Wunused-variable]
+  274 |     size_t bytes_written = 0;
+      |            ^~~~~~~~~~~~~
+At top level:
+C:/Users/dell/Desktop/3-2/EE3/2202_espnow_new/baby-cry-detector/main/espnow_mic.c:57:16: warning: 'mic_read_buf' defined but not used [-Wunused-variable]
+   57 | static uint8_t mic_read_buf[READ_BUF_SIZE_BYTES];
+      |                ^~~~~~~~~~~~
+[4/12] Linking C static library esp-idf\main\libmain.a
+[5/12] Performing build step for 'bootloader'
+[0/1] Re-running CMake...
+-- Building ESP-IDF components for target esp32
+-- Project sdkconfig file C:/Users/dell/Desktop/3-2/EE3/2202_espnow_new/baby-cry-detector/sdkconfig
+-- Adding linker script C:/Users/dell/esp/esp-idf/components/soc/esp32/ld/esp32.peripherals.ld
+-- App "bootloader" version: v5.0.1
+-- Adding linker script C:/Users/dell/esp/esp-idf/components/esp_rom/esp32/ld/esp32.rom.ld
+-- Adding linker script C:/Users/dell/esp/esp-idf/components/esp_rom/esp32/ld/esp32.rom.api.ld
+-- Adding linker script C:/Users/dell/esp/esp-idf/components/esp_rom/esp32/ld/esp32.rom.libgcc.ld
+-- Adding linker script C:/Users/dell/esp/esp-idf/components/esp_rom/esp32/ld/esp32.rom.newlib-funcs.ld
+-- Adding linker script C:/Users/dell/esp/esp-idf/components/bootloader/subproject/main/ld/esp32/bootloader.ld
+-- Adding linker script C:/Users/dell/esp/esp-idf/components/bootloader/subproject/main/ld/esp32/bootloader.rom.ld
+-- Components: bootloader bootloader_support efuse esp_app_format esp_common esp_hw_support esp_rom esp_system esptool_py freertos hal log main micro-ecc newlib partition_table soc spi_flash xtensa
+-- Component paths: C:/Users/dell/esp/esp-idf/components/bootloader C:/Users/dell/esp/esp-idf/components/bootloader_support C:/Users/dell/esp/esp-idf/components/efuse C:/Users/dell/esp/esp-idf/components/esp_app_format C:/Users/dell/esp/esp-idf/components/esp_common C:/Users/dell/esp/esp-idf/components/esp_hw_support C:/Users/dell/esp/esp-idf/components/esp_rom C:/Users/dell/esp/esp-idf/components/esp_system C:/Users/dell/esp/esp-idf/components/esptool_py C:/Users/dell/esp/esp-idf/components/freertos C:/Users/dell/esp/esp-idf/components/hal C:/Users/dell/esp/esp-idf/components/log C:/Users/dell/esp/esp-idf/components/bootloader/subproject/main C:/Users/dell/esp/esp-idf/components/bootloader/subproject/components/micro-ecc C:/Users/dell/esp/esp-idf/components/newlib C:/Users/dell/esp/esp-idf/components/partition_table C:/Users/dell/esp/esp-idf/components/soc C:/Users/dell/esp/esp-idf/components/spi_flash C:/Users/dell/esp/esp-idf/components/xtensa
+-- Configuring done
+-- Generating done
+-- Build files have been written to: C:/Users/dell/Desktop/3-2/EE3/2202_espnow_new/baby-cry-detector/build/bootloader
+[1/1] cmd.exe /C "cd /D C:\Users\dell\Desktop\3-2\EE3\2202_espnow_new\baby-cry-detector\build\bootloader\esp-idf\esptool_py && C:\Users\dell\.espressif\python_env\idf5.0_py3.8_env\Scripts\python.exe C:/Users/dell/esp/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x1000 C:/Users/dell/Desktop/3-2/EE3/2202_espnow_new/baby-cry-detector/build/bootloader/bootloader.bin"
+Bootloader binary size 0x6700 bytes. 0x900 bytes (8%) free.
+[6/10] Generating ld/sections.ld
+[7/10] Linking CXX executable espnow_public.elf
+[8/10] Generating binary image from built executable
+esptool.py v4.5
+Creating esp32 image...
+Merged 25 ELF sections
+Successfully created esp32 image.
+Generated C:/Users/dell/Desktop/3-2/EE3/2202_espnow_new/baby-cry-detector/build/espnow_public.bin
+[9/10] cmd.exe /C "cd /D C:\Users\dell\Desktop\3-2\EE3\2202_espnow_new\baby-cry-detector\build\esp-idf\esptool_py && C:\Users\dell\.espressif\python_env\idf5.0_py3.8_env\Scripts\python.exe C:/Users/dell/esp/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 partition --type app C:/Users/dell/Desktop/3-2/EE3/2202_espnow_new/baby-cry-detector/build/partition_table/partition-table.bin C:/Users/dell/Desktop/3-2/EE3/2202_espnow_new/baby-cry-detector/build/espnow_public.bin"
+espnow_public.bin binary size 0xb0d20 bytes. Smallest app partition is 0x100000 bytes. 0x4f2e0 bytes (31%) free.
+[9/10] cmd.exe /C "cd /D C:\Users\dell\esp\esp-idf\components\esptool_py && C:\Users\dell\.espressif\tools\cmake\3.24.0\bin\cmake.exe -D IDF_PATH=C:/Users/dell/esp/esp-idf -D SERIAL_TOOL=C:/Users/dell/.espressif/python_env/idf5.0_py3.8_env/Scripts/python.exe;;C:/Users/dell/esp/esp-idf/components/esptool_py/esptool/esptool.py;--chip;esp32 -D SERIAL_TOOL_ARGS=--before=default_reset;--after=hard_reset;write_flash;@flash_args -D WORKING_DIRECTORY=C:/Users/dell/Desktop/3-2/EE3/2202_espnow_new/baby-cry-detector/build -P C:/Users/dell/esp/esp-idf/components/esptool_py/run_serial_tool.cmake"
+esptool esp32 -p COM20 -b 460800 --before=default_reset --after=hard_reset write_flash --flash_mode dio --flash_freq 40m --flash_size 2MB 0x1000 bootloader/bootloader.bin 0x10000 espnow_public.bin 0x8000 partition_table/partition-table.bin
+esptool.py v4.5
+Serial port COM20
+Connecting....
+Chip is ESP32-D0WD-V3 (revision v3.0)
+Features: WiFi, BT, Dual Core, 240MHz, VRef calibration in efuse, Coding Scheme None
+Crystal is 40MHz
+MAC: c0:49:ef:cd:e8:4c
+Uploading stub...
+Running stub...
+Stub running...
+Changing baud rate to 460800
+Changed.
+Configuring flash size...
+Flash will be erased from 0x00001000 to 0x00007fff...
+Flash will be erased from 0x00010000 to 0x000c0fff...
+Flash will be erased from 0x00008000 to 0x00008fff...
+Compressed 26368 bytes to 16446...
+Writing at 0x00001000... (50 %)
+Writing at 0x000076b1... (100 %)
+Wrote 26368 bytes (16446 compressed) at 0x00001000 in 0.7 seconds (effective 307.3 kbit/s)...
+Hash of data verified.
+Compressed 724256 bytes to 462994...
+Writing at 0x00010000... (3 %)
+Writing at 0x0001b721... (6 %)
+Writing at 0x0002456a... (10 %)
+Writing at 0x00029875... (13 %)
+Writing at 0x00031ee1... (17 %)
+Writing at 0x00037a6d... (20 %)
+Writing at 0x0003dc30... (24 %)
+Writing at 0x0004372c... (27 %)
+Writing at 0x000494bf... (31 %)
+Writing at 0x0004e7d6... (34 %)
+Writing at 0x00053b9e... (37 %)
+Writing at 0x00058e15... (41 %)
+Writing at 0x0005e5c9... (44 %)
+Writing at 0x00063cdd... (48 %)
+Writing at 0x000693a2... (51 %)
+Writing at 0x0006f10e... (55 %)
+Writing at 0x00074762... (58 %)
+Writing at 0x00079f04... (62 %)
+Writing at 0x0007f81c... (65 %)
+Writing at 0x0008528a... (68 %)
+Writing at 0x0008adeb... (72 %)
+Writing at 0x000910d0... (75 %)
+Writing at 0x000968c8... (79 %)
+Writing at 0x0009f786... (82 %)
+Writing at 0x000a77e5... (86 %)
+Writing at 0x000aec94... (89 %)
+Writing at 0x000b45f8... (93 %)
+Writing at 0x000ba199... (96 %)
+Writing at 0x000bf380... (100 %)
+Wrote 724256 bytes (462994 compressed) at 0x00010000 in 10.7 seconds (effective 542.0 kbit/s)...
+Hash of data verified.
+Compressed 3072 bytes to 103...
+Writing at 0x00008000... (100 %)
+Wrote 3072 bytes (103 compressed) at 0x00008000 in 0.1 seconds (effective 481.9 kbit/s)...
+Hash of data verified.
+
+Leaving...
+Hard resetting via RTS pin...
