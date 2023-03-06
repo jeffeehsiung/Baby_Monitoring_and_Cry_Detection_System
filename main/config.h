@@ -4,7 +4,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdint.h>
 #include <string.h>
 #include <assert.h>
 #include "esp_event.h"
@@ -14,7 +13,6 @@
 #include "esp_mac.h"
 #include "esp_now.h"
 #include "esp_crc.h"
-#include "esp_check.h"
 #include "esp_vfs_fat.h"
 #include "esp_adc_cal.h"
 #include "esp_partition.h"
@@ -23,17 +21,8 @@
 #include "esp_err.h"
 #include "errno.h"
 #include "driver/spi_common.h"
-
-#if !CONFIG_IDF_TARGET_ESP32
-#include "driver/i2s_pdm.h"
-#include "driver/i2s_std.h"
-#endif
-
-#if CONFIG_IDF_TARGET_ESP32
-// #include "driver/i2s.h"
-// #include "driver/adc.h"
-#endif
-
+#include "driver/i2s.h"
+#include "driver/adc.h"
 #include "driver/gpio.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/semphr.h"
@@ -49,7 +38,11 @@
 #include <sys/stat.h>
 #include <time.h>
 
+#if !(CONFIG_IDF_TARGET_ESP32)
+#include "i2s_recv_std_config.h"
+#endif
 
+#define RECV 0
 
 
 /** wifi configuration */
@@ -104,20 +97,12 @@
 // define max read buffer size
 #define READ_BUF_SIZE_BYTES       (250)
 
-
-/* i2s speaker settings */ 
-#if (!CONFIG_IDF_TARGET_ESP32)
-    #define EXAMPLE_BUFF_SIZE   2048
-    #define EXAMPLE_STD_BCLK_IO1        GPIO_NUM_2      // I2S bit clock io number
-    #define EXAMPLE_STD_WS_IO1          GPIO_NUM_3      // I2S word select io number
-    #define EXAMPLE_STD_DOUT_IO1        GPIO_NUM_4      // I2S data out io number
-    #define EXAMPLE_STD_DIN_IO1         GPIO_NUM_5      // I2S data in io number
-    #define EXAMPLE_BUFF_SIZE               2048
-    #define EXAMPLE_I2S_CHANNEL_NUM         1
-    #define BYTE_RATE                 (EXAMPLE_I2S_SAMPLE_RATE * EXAMPLE_I2S_SAMPLE_BITS / 8)
-#endif
-
-i2s_chan_handle_t i2s_recv_std_config(void);
+void espnow_wifi_init(void);
+void init_non_volatile_storage(void);
+void i2s_adc_config(void);
+void i2s_dac_config(void);
+esp_err_t espnow_init(void);
 void init_config(void);
+void deinit_config(void);
 
 #endif

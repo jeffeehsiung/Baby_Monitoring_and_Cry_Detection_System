@@ -56,8 +56,6 @@
 /Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/esp-idf/mqtt/libmqtt.a
 /Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/esp-idf/perfmon/libperfmon.a
 /Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/esp-idf/spiffs/libspiffs.a
-/Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/esp-idf/touch_element/libtouch_element.a
 /Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/esp-idf/ulp/libulp.a
-/Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/esp-idf/usb/libusb.a
 /Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/esp-idf/wifi_provisioning/libwifi_provisioning.a
 /Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/esp-idf/main/libmain.a
