@@ -24,7 +24,7 @@ void espnow_wifi_init(void)
     ESP_ERROR_CHECK( esp_wifi_set_storage(WIFI_STORAGE_RAM) );
     ESP_ERROR_CHECK( esp_wifi_set_mode(ESPNOW_WIFI_MODE) );
     ESP_ERROR_CHECK( esp_wifi_start());
-    ESP_ERROR_CHECK(esp_wifi_internal_set_fix_rate(ESPNOW_WIFI_IF, true, WIFI_PHY_RATE_9M));
+    ESP_ERROR_CHECK(esp_wifi_internal_set_fix_rate(ESPNOW_WIFI_IF, true, WIFI_PHY_RATE_6M));
 
 #if CONFIG_ESPNOW_ENABLE_LONG_RANGE
     ESP_ERROR_CHECK( esp_wifi_set_protocol(ESPNOW_WIFI_IF, WIFI_PROTOCOL_11B|WIFI_PROTOCOL_11G|WIFI_PROTOCOL_11N|WIFI_PROTOCOL_LR) );
@@ -44,6 +44,8 @@ void init_non_volatile_storage(void) {
         printf("Error initializing NVS\n");
     }
 }
+
+#if (!RECV)
 
 /**
  * @brief I2S config for using internal ADC and DAC
@@ -80,6 +82,9 @@ void i2s_adc_config(void)
      i2s_set_adc_mode(I2S_ADC_UNIT, I2S_ADC_CHANNEL);
 }
 
+#endif
+
+#if (RECV)
 /**
  * @brief I2S config for using internal DAC
  * */
@@ -88,7 +93,7 @@ void i2s_dac_config(void)
     int i2s_num = EXAMPLE_I2S_NUM;
     i2s_config_t i2s_config = {
         .mode = I2S_MODE_MASTER | I2S_MODE_TX | I2S_MODE_DAC_BUILT_IN, // master and rx for mic, tx for speaker, adc for internal adc
-        .sample_rate =  EXAMPLE_I2S_SAMPLE_RATE, // 16KHz for adc
+        .sample_rate =  (2*EXAMPLE_I2S_SAMPLE_RATE), // 16KHz for adc
         .bits_per_sample = EXAMPLE_I2S_SAMPLE_BITS, // 16 bits for adc
         .communication_format = I2S_COMM_FORMAT_STAND_MSB, // standard format for adc
         .channel_format = EXAMPLE_I2S_FORMAT, // only right channel same as adc
@@ -101,14 +106,12 @@ void i2s_dac_config(void)
     };
 
     //install and start i2s driver
-    i2s_driver_install(i2s_num, &i2s_config, 0, NULL);
+    ESP_ERROR_CHECK(i2s_driver_install(i2s_num, &i2s_config, 0, NULL));
     //init DAC pad
-    i2s_set_dac_mode(I2S_DAC_CHANNEL_BOTH_EN); // enable both I2S built-in DAC channels L/R, maps to DAC channel 1 on GPIO25 & GPIO26
-    // clear the DMA buffers
-    i2s_zero_dma_buffer(i2s_num);
-    // set clock for both dac channels
-    i2s_set_clk(i2s_num, EXAMPLE_I2S_SAMPLE_RATE, EXAMPLE_I2S_SAMPLE_BITS, EXAMPLE_I2S_FORMAT);
+    ESP_ERROR_CHECK(i2s_set_dac_mode(I2S_DAC_CHANNEL_BOTH_EN)); // enable both I2S built-in DAC channels L/R, maps to DAC channel 1 on GPIO25 & GPIO26
 }
+
+#endif
 
 
 /* initialized espnow */
@@ -151,7 +154,7 @@ void init_config(void){
     init_non_volatile_storage();
     espnow_wifi_init();
     espnow_init();
-#if CONFIG_IDF_TARGET_ESP32
+#if CONFIG_IDF_TARGET_ESP32 & (!RECV)
     i2s_adc_config();
 #endif
     /**
@@ -183,8 +186,9 @@ void deinit_config(void){
     i2s_driver_uninstall(EXAMPLE_I2S_NUM);
     esp_wifi_stop();
     esp_wifi_deinit();
-
+#if CONFIG_IDF_TARGET_ESP32 & (!RECV)
     free(mic_read_buf);
+#endif
     free(spk_write_buf);
     free(audio_input_buf);
     free(audio_output_buf);

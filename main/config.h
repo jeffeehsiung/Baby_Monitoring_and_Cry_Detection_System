@@ -42,7 +42,7 @@
 #include "i2s_recv_std_config.h"
 #endif
 
-#define RECV 0
+#define RECV 1
 
 
 /** wifi configuration */
@@ -68,7 +68,7 @@
 //enable replay recorded sound in flash
 #define REPLAY_FROM_FLASH_EN      (1)
 
-//i2s number for interface channel (0 or 1, 0 for mic and 1 for speaker)
+//i2s number for interface channel
 #define EXAMPLE_I2S_NUM           (0)
 //i2s sample rate
 #define EXAMPLE_I2S_SAMPLE_RATE   (16000)

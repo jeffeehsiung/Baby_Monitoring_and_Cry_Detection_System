@@ -89,7 +89,7 @@ The following is the hardware connection:
 
 |hardware|module|GPIO|
 |:---:|:---:|:---:|
-|Microphone|ADC1_CH0|GPIO36|
+|Microphone|ADC1_CH0|GPIO35|
 |speaker(R)|DAC1|GPIO25|
 |speaker(L)|DAC2|GPIO26|
 |speaker(L)|ESP32_S3|GPIO4|

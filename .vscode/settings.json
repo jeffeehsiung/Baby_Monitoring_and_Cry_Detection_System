@@ -10,6 +10,6 @@
   },
   "idf.port": "/dev/cu.SLAB_USBtoUART4",
   "idf.openOcdConfigs": [
-    "board/esp32-bridge.cfg"
+    "board/esp32-wrover-kit-3.3v.cfg"
   ]
 }
