@@ -9,21 +9,6 @@ static StreamBufferHandle_t mic_stream_buf;
 static StreamBufferHandle_t network_stream_buf; // only for reciever
 
 void app_main(void) {
-<<<<<<< HEAD
-    mic_stream_buf = xStreamBufferCreate(512, 1);
-    network_stream_buf = xStreamBufferCreate(512, 1);
-
-    init_transmit(mic_stream_buf);
-    init_audio(mic_stream_buf, network_stream_buf);
-    // init_recv(network_stream_buf);
-    
-    // Loopback testing
-    // init_audio(mic_stream_buf, mic_stream_buf);
-
-    while (true) {
-        printf("Hello world!\n");
-        vTaskDelay(1000 / portTICK_PERIOD_MS);
-=======
     // deafult transmission rate of esp_now_send is 1Mbps = 125KBps, stream buffer size has to be larger than 125KBps
 #if (!RECV)
     mic_stream_buf = xStreamBufferCreate(EXAMPLE_I2S_READ_LEN, READ_BUF_SIZE_BYTES);
@@ -32,7 +17,6 @@ void app_main(void) {
         printf("Error creating mic stream buffer: %d\n", errno);
         deinit_config();
         exit(errno);
->>>>>>> receiver
     }
 #else
     network_stream_buf = xStreamBufferCreate(BYTE_RATE, EXAMPLE_I2S_READ_LEN);
