@@ -40,6 +40,10 @@ Digital signal processor, in the next stage, consists of two elements, digital f
 Digital signal processor, in the next stage, consists of two elements, digital filtering and digital signal processing. Digital filtering is to further reduce noise and smooth the signal output from ADC, such as by a digitized Butterworth low pass filter. Digital signal processing, on the other hand, is to generate the frequency spectrum of filtered digital signal for pattern analysis, and further utilize Continuous Fourier Transform, Fast Fourier Transform, or Finite Impulse Response to develop an algorithm that discerns signals of crying and of babbling.
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> receiver
 
 | Supported Targets | ESP32 | ESP32-C3 | ESP32-S2 | ESP32-S3 |
 | ----------------- | ----- | -------- | -------- | -------- |
@@ -73,6 +77,11 @@ not required to use ESPNOW. They are only used to make this example to run corre
 to make ESPNOW data more safe and more reliable.
 
 ## How to use example
+
+### Code Initialize
+* for reciever:
+* in config.h, set macro RECV to 1
+
 ### Hardware Required
 
 * A development board with ESP32 SoC (e.g., ESP32-DevKitC, ESP-WROVER-KIT, etc.)
@@ -83,9 +92,10 @@ The following is the hardware connection:
 
 |hardware|module|GPIO|
 |:---:|:---:|:---:|
-|Microphone|ADC1_CH0|GPIO36|
+|Microphone|ADC1_CH0|GPIO35|
 |speaker(R)|DAC1|GPIO25|
 |speaker(L)|DAC2|GPIO26|
+|speaker(L)|ESP32_S3|GPIO4|
 
 ### Configure the project
 
@@ -125,13 +135,35 @@ See the Getting Started Guide for full steps to configure and use ESP-IDF to bui
 Here is the example of ESPNOW receiving device console output.
 
 ```
+<<<<<<< HEAD
 
+=======
+initializing i2s spk
+Received 3264 packets in 10 seconds
+Received 3392 packets in 10 seconds
+Received 3264 packets in 10 seconds
+Received 3328 packets in 10 seconds
+Received 3200 packets in 10 seconds
+Received 3328 packets in 10 seconds
+Received 3264 packets in 10 seconds
+>>>>>>> receiver
 ```
 
 Here is the example of ESPNOW sending device console output.
 
 ```
+<<<<<<< HEAD
 
+=======
+Init transport!
+initializing i2s mic
+Packets sent in last 10 second: 3350 
+Packets lost in last 10 second: 2221 
+Packets sent in last 10 second: 3347 
+Packets lost in last 10 second: 2445 
+Packets sent in last 10 second: 3407 
+Packets lost in last 10 second: 2385 
+>>>>>>> receiver
 ```
 
 ## Troubleshooting
