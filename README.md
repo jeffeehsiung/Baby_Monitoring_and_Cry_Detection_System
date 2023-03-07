@@ -168,9 +168,9 @@ modem sleep should be disabled. Otherwise, it may fail to revceive ESPNOW data f
 
 
 ## Steps to merging branch into master
-git fetch.
-git rebase origin/master.
-git checkout master.
-git pull origin master.
-git merge test.
-git push origin master.
+* git fetch.
+* git rebase origin/master.
+* git checkout master.
+* git pull origin master.
+* git merge test.
+* git push origin master.
