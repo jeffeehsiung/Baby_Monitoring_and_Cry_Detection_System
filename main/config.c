@@ -8,8 +8,6 @@
 static const char* TAG = "espnow_mic";
 static uint8_t broadcast_mac[ESP_NOW_ETH_ALEN] = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
 extern uint8_t* mic_read_buf;
-extern uint8_t* audio_input_buf;
-extern uint8_t* audio_output_buf;
 extern uint8_t* spk_write_buf;
 
 /* WiFi should start before using ESPNOW */
@@ -44,8 +42,6 @@ void init_non_volatile_storage(void) {
         printf("Error initializing NVS\n");
     }
 }
-
-#if (!RECV)
 
 /**
  * @brief I2S config for using internal ADC and DAC
@@ -82,9 +78,6 @@ void i2s_adc_config(void)
      i2s_set_adc_mode(I2S_ADC_UNIT, I2S_ADC_CHANNEL);
 }
 
-#endif
-
-#if (RECV)
 /**
  * @brief I2S config for using internal DAC
  * */
@@ -93,7 +86,7 @@ void i2s_dac_config(void)
     int i2s_num = EXAMPLE_I2S_NUM;
     i2s_config_t i2s_config = {
         .mode = I2S_MODE_MASTER | I2S_MODE_TX | I2S_MODE_DAC_BUILT_IN, // master and rx for mic, tx for speaker, adc for internal adc
-        .sample_rate =  (2*EXAMPLE_I2S_SAMPLE_RATE), // 16KHz for adc
+        .sample_rate =  EXAMPLE_I2S_SAMPLE_RATE, // 16KHz for adc
         .bits_per_sample = EXAMPLE_I2S_SAMPLE_BITS, // 16 bits for adc
         .communication_format = I2S_COMM_FORMAT_STAND_MSB, // standard format for adc
         .channel_format = EXAMPLE_I2S_FORMAT, // only right channel same as adc
@@ -106,12 +99,10 @@ void i2s_dac_config(void)
     };
 
     //install and start i2s driver
-    ESP_ERROR_CHECK(i2s_driver_install(i2s_num, &i2s_config, 0, NULL));
+    i2s_driver_install(i2s_num, &i2s_config, 0, NULL);
     //init DAC pad
-    ESP_ERROR_CHECK(i2s_set_dac_mode(I2S_DAC_CHANNEL_BOTH_EN)); // enable both I2S built-in DAC channels L/R, maps to DAC channel 1 on GPIO25 & GPIO26
+    i2s_set_dac_mode(I2S_DAC_CHANNEL_RIGHT_EN); // enable only I2S built-in DAC channels R, maps to GPIO25
 }
-
-#endif
 
 
 /* initialized espnow */
@@ -186,11 +177,9 @@ void deinit_config(void){
     i2s_driver_uninstall(EXAMPLE_I2S_NUM);
     esp_wifi_stop();
     esp_wifi_deinit();
+
 #if CONFIG_IDF_TARGET_ESP32 & (!RECV)
     free(mic_read_buf);
 #endif
     free(spk_write_buf);
-    free(audio_input_buf);
-    free(audio_output_buf);
-
 }

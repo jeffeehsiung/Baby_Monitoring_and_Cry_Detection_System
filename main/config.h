@@ -42,7 +42,7 @@
 #include "i2s_recv_std_config.h"
 #endif
 
-#define RECV 1
+#define RECV 0
 
 
 /** wifi configuration */

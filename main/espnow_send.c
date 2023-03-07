@@ -31,9 +31,9 @@ void espnow_send_task(void* task_param) {
     while (true) {
 
         // read from the mic stream buffer until it is empty
-        size_t num_bytes = xStreamBufferReceive(mic_stream_buf, esp_now_send_buf, sizeof(esp_now_send_buf), portMAX_DELAY);
+        size_t num_bytes = xStreamBufferReceive(mic_stream_buf, esp_now_send_buf, READ_BUF_SIZE_BYTES, portMAX_DELAY);
         if (num_bytes > 0) {
-            esp_err_t err = esp_now_send(broadcast_mac, esp_now_send_buf, sizeof(esp_now_send_buf));
+            esp_err_t err = esp_now_send(broadcast_mac, esp_now_send_buf, READ_BUF_SIZE_BYTES);
             if (err != ESP_OK) {
                 packet_loss++;
             }else{
@@ -50,7 +50,7 @@ void espnow_send_task(void* task_param) {
             exit(errno);
         }
         // check if the timer has reached 10 second
-        if (time(NULL) - start_time >= 10) {
+        if (time(NULL) - start_time >= 1000) {
             // print the number of packets sent and loss in the last second
             printf("Packets sent in last 10 second: %d \n", packet_count);
             printf("Packets lost in last 10 second: %d \n", packet_loss);
