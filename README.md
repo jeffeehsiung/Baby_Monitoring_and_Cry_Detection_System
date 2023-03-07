@@ -135,9 +135,6 @@ See the Getting Started Guide for full steps to configure and use ESP-IDF to bui
 Here is the example of ESPNOW receiving device console output.
 
 ```
-<<<<<<< HEAD
-
-=======
 initializing i2s spk
 Received 3264 packets in 10 seconds
 Received 3392 packets in 10 seconds
@@ -146,15 +143,11 @@ Received 3328 packets in 10 seconds
 Received 3200 packets in 10 seconds
 Received 3328 packets in 10 seconds
 Received 3264 packets in 10 seconds
->>>>>>> receiver
 ```
 
 Here is the example of ESPNOW sending device console output.
 
 ```
-<<<<<<< HEAD
-
-=======
 Init transport!
 initializing i2s mic
 Packets sent in last 10 second: 3350 
@@ -163,7 +156,6 @@ Packets sent in last 10 second: 3347
 Packets lost in last 10 second: 2445 
 Packets sent in last 10 second: 3407 
 Packets lost in last 10 second: 2385 
->>>>>>> receiver
 ```
 
 ## Troubleshooting
@@ -173,3 +165,12 @@ on the same channel or the primary key and local key are different.
 
 In real application, if the receiving device is in station mode only and it connects to an AP,
 modem sleep should be disabled. Otherwise, it may fail to revceive ESPNOW data from other devices.
+
+
+## Steps to merging branch into master
+git fetch.
+git rebase origin/master.
+git checkout master.
+git pull origin master.
+git merge test.
+git push origin master.
