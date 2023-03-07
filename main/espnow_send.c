@@ -44,11 +44,6 @@ void espnow_send_task(void* task_param) {
             printf("Error reading from mic stream buffer: %d\n", errno);
             ESP_LOGE(TAG, "No data in m");
         }
-        else if (num_bytes != (READ_BUF_SIZE_BYTES*sizeof(char))) {
-            printf("Error partial reading from mic stream: %d\n", errno);
-            deinit_config();
-            exit(errno);
-        }
         // check if the timer has reached 10 second
         if (time(NULL) - start_time >= 1000) {
             // print the number of packets sent and loss in the last second

@@ -5,10 +5,10 @@
 #include "espnow_recv.h"
 #include "esp_private/wifi.h"
 
-static const char* TAG = "espnow_mic";
+static const char* TAG = "config";
 static uint8_t broadcast_mac[ESP_NOW_ETH_ALEN] = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
-extern uint8_t* mic_read_buf;
 extern uint8_t* spk_write_buf;
+
 
 /* WiFi should start before using ESPNOW */
 void espnow_wifi_init(void)
@@ -43,6 +43,7 @@ void init_non_volatile_storage(void) {
     }
 }
 
+#if (!RECV)
 /**
  * @brief I2S config for using internal ADC and DAC
  * one time set up
@@ -77,7 +78,9 @@ void i2s_adc_config(void)
      //init ADC pad
      i2s_set_adc_mode(I2S_ADC_UNIT, I2S_ADC_CHANNEL);
 }
+#endif
 
+#if (RECV)
 /**
  * @brief I2S config for using internal DAC
  * */
@@ -89,20 +92,21 @@ void i2s_dac_config(void)
         .sample_rate =  EXAMPLE_I2S_SAMPLE_RATE, // 16KHz for adc
         .bits_per_sample = EXAMPLE_I2S_SAMPLE_BITS, // 16 bits for adc
         .communication_format = I2S_COMM_FORMAT_STAND_MSB, // standard format for adc
-        .channel_format = EXAMPLE_I2S_FORMAT, // only right channel same as adc
+        .channel_format = I2S_CHANNEL_FMT_RIGHT_LEFT, // only right channel same as adc
         .intr_alloc_flags = 0, // default interrupt priority
-        .dma_desc_num = 4, // number of dma descriptors, or count for adc
-        .dma_frame_num = 1024, // number of dma frames, or length for adc
+        .dma_desc_num = 8, // number of dma descriptors, or count for adc
+        .dma_frame_num = 64, // number of dma frames, or length for adc
         .use_apll = false, // use apll for adc. if false, peripheral clock is derived and used for better wifi transmission performance (pending test)
-        .tx_desc_auto_clear = true, // i2s auto clear tx descriptor on underflow
-        .fixed_mclk = 0, // i2s fixed MLCK clock
     };
 
     //install and start i2s driver
     i2s_driver_install(i2s_num, &i2s_config, 0, NULL);
     //init DAC pad
-    i2s_set_dac_mode(I2S_DAC_CHANNEL_RIGHT_EN); // enable only I2S built-in DAC channels R, maps to GPIO25
+    i2s_set_dac_mode(I2S_DAC_CHANNEL_BOTH_EN); // enable only I2S built-in DAC channels R, maps to GPIO25
+    // set sample rate
+    i2s_set_sample_rates(i2s_num, EXAMPLE_I2S_SAMPLE_RATE/2);
 }
+#endif
 
 
 /* initialized espnow */
@@ -110,7 +114,6 @@ esp_err_t espnow_init(void){
 
     /* Initialize ESPNOW and register sending and receiving callback function. */
     ESP_ERROR_CHECK( esp_now_init() );
-    
     /**
      * registration of receiving callback function
      * */ 
@@ -152,7 +155,7 @@ void init_config(void){
      * for configuring i2s-speaker only
     */
 #if (!CONFIG_IDF_TARGET_ESP32 ) & RECV
-   i2s_recv_std_config(void);
+   i2s_recv_std_config();
 #endif
 
 #if CONFIG_IDF_TARGET_ESP32 & RECV
@@ -179,7 +182,7 @@ void deinit_config(void){
     esp_wifi_deinit();
 
 #if CONFIG_IDF_TARGET_ESP32 & (!RECV)
-    free(mic_read_buf);
+    // free(mic_read_buf);
 #endif
     free(spk_write_buf);
 }

@@ -24,6 +24,7 @@
 #include "driver/i2s.h"
 #include "driver/adc.h"
 #include "driver/gpio.h"
+#include "driver/dac.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/semphr.h"
 #include "freertos/timers.h"
@@ -42,7 +43,7 @@
 #include "i2s_recv_std_config.h"
 #endif
 
-#define RECV 0
+#define RECV 1
 
 
 /** wifi configuration */
@@ -71,7 +72,7 @@
 //i2s number for interface channel
 #define EXAMPLE_I2S_NUM           (0)
 //i2s sample rate
-#define EXAMPLE_I2S_SAMPLE_RATE   (16000)
+#define EXAMPLE_I2S_SAMPLE_RATE   (44100)
 //i2s data bits
 #define EXAMPLE_I2S_SAMPLE_BITS   (16)
 //enable display buffer for debug
@@ -104,5 +105,7 @@ void i2s_dac_config(void);
 esp_err_t espnow_init(void);
 void init_config(void);
 void deinit_config(void);
+
+
 
 #endif
