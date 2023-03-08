@@ -18,9 +18,7 @@ void app_main(void) {
         deinit_config();
         exit(errno);
     }
-#endif
-
-#if (RECV)
+#else
     network_stream_buf = xStreamBufferCreate(BYTE_RATE, EXAMPLE_I2S_READ_LEN);
     // check if the stream buffer is created
     if (network_stream_buf == NULL) {
@@ -29,12 +27,8 @@ void app_main(void) {
         exit(errno);
     }
 #endif
-
-#if (!RECV)
-    // initialize the transmitter and audio
-    init_transmit(mic_stream_buf);
-    init_audio_trans(mic_stream_buf);
-#else
+    
+#if (RECV)
     // initialize the reciever and audio (only for reciever)
     init_recv(network_stream_buf);
     init_audio_recv(network_stream_buf);
@@ -42,5 +36,11 @@ void app_main(void) {
 
     // initialize espnow, nvm, wifi, and i2s configuration
     init_config();
+
+#if (!RECV)
+    // initialize the transmitter and audio
+    init_transmit(mic_stream_buf);
+    init_audio_trans(mic_stream_buf);
+#endif
     
 }
