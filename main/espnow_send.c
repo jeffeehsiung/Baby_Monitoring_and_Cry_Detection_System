@@ -38,6 +38,7 @@ void espnow_send_task(void* task_param) {
                 packet_loss++;
             }else{
                 packet_count++;
+                // send_disp_buf((uint8_t*)esp_now_send_buf, READ_BUF_SIZE_BYTES);
             }
         }
         else if (num_bytes == 0) {
@@ -62,6 +63,25 @@ void espnow_send_task(void* task_param) {
 void init_transmit(StreamBufferHandle_t mic_stream_buf){
     printf("Init transport!\n");
     xTaskCreate(espnow_send_task, "espnow_send_task", 4096, (void*) mic_stream_buf, 4, NULL); // create another thread to send data
+}
+
+/** debug functions below */
+
+/**
+ * @brief debug buffer data
+ */
+void send_disp_buf(uint8_t* buf, int length)
+{
+#if EXAMPLE_I2S_BUF_DEBUG
+    printf("\n=== SEND ===\n");
+    for (int i = 0; i < length; i++) {
+        printf("%02x ", buf[i]);
+        if ((i + 1) % 8 == 0) {
+            printf("\n");
+        }
+    }
+    printf("\n=== SEND ===\n");
+#endif
 }
 
 

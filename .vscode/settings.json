@@ -6,7 +6,8 @@
   "files.associations": {
     "cerrno": "c",
     "spi_common.h": "c",
-    "spi_flash_mmap.h": "c"
+    "spi_flash_mmap.h": "c",
+    "string_view": "c"
   },
   "idf.port": "/dev/cu.SLAB_USBtoUART4",
   "idf.openOcdConfigs": [
