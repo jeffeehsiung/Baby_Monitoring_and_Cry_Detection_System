@@ -9,7 +9,7 @@
     "spi_flash_mmap.h": "c",
     "string_view": "c"
   },
-  "idf.port": "/dev/cu.SLAB_USBtoUART",
+  "idf.port": "/dev/cu.SLAB_USBtoUART5",
   "idf.openOcdConfigs": [
     "interface/ftdi/esp32_devkitj_v1.cfg",
     "target/esp32.cfg"
