@@ -4,6 +4,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <string.h>
 #include <assert.h>
 #include "esp_event.h"
@@ -14,7 +15,6 @@
 #include "esp_now.h"
 #include "esp_crc.h"
 #include "esp_vfs_fat.h"
-#include "esp_adc_cal.h"
 #include "esp_partition.h"
 #include "esp_rom_sys.h"
 #include "esp_system.h"
@@ -64,10 +64,6 @@
 #define ADC1_TEST_CHANNEL (ADC1_CHANNEL_7)
 // i2s mic and adc settings
 #define V_REF   1100
-//enable record sound and save in flash
-#define RECORD_IN_FLASH_EN        (1)
-//enable replay recorded sound in flash
-#define REPLAY_FROM_FLASH_EN      (1)
 
 //i2s number for interface channel
 #define EXAMPLE_I2S_NUM           (0)
@@ -76,7 +72,7 @@
 //i2s data bits
 #define EXAMPLE_I2S_SAMPLE_BITS   (16)
 //enable display buffer for debug
-#define EXAMPLE_I2S_BUF_DEBUG     (0)
+#define EXAMPLE_I2S_BUF_DEBUG     (1)
 //I2S read buffer length
 #define EXAMPLE_I2S_READ_LEN      (16 * 1024)
 

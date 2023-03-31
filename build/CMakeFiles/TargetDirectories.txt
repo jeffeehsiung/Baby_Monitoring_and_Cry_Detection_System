@@ -587,6 +587,13 @@
 /Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/esp-idf/wifi_provisioning/CMakeFiles/install.dir
 /Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/esp-idf/wifi_provisioning/CMakeFiles/install/local.dir
 /Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/esp-idf/wifi_provisioning/CMakeFiles/install/strip.dir
+/Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/esp-idf/espressif__esp-dsp/CMakeFiles/__idf_espressif__esp-dsp.dir
+/Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/esp-idf/espressif__esp-dsp/CMakeFiles/edit_cache.dir
+/Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/esp-idf/espressif__esp-dsp/CMakeFiles/rebuild_cache.dir
+/Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/esp-idf/espressif__esp-dsp/CMakeFiles/list_install_components.dir
+/Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/esp-idf/espressif__esp-dsp/CMakeFiles/install.dir
+/Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/esp-idf/espressif__esp-dsp/CMakeFiles/install/local.dir
+/Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/esp-idf/espressif__esp-dsp/CMakeFiles/install/strip.dir
 /Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/esp-idf/main/CMakeFiles/__idf_main.dir
 /Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/esp-idf/main/CMakeFiles/edit_cache.dir
 /Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/esp-idf/main/CMakeFiles/rebuild_cache.dir
