@@ -1,5 +1,5 @@
 #include "fftpeak.h"
-#include "music.h"
+#include "espnow_mic.h"
 #include "zcr.h"
 
 
@@ -15,7 +15,7 @@
 #define FFT_ESP_DSP 0
 
 static const char* TAG = "FFTPEAK";
-
+TaskHandle_t fft_task_handle = NULL;
 
 void fft_task(void* task_param){
     // get the stream buffer handle from the task parameter
@@ -110,7 +110,7 @@ void fft_task(void* task_param){
         
         // fill signal with ADC output (use xStreamBufferReceive() to get data from ADC DMA buffer) with size sample rate
         size_t byte_received = xStreamBufferReceive(fft_stream_buf, fft_input, N, wait_ticks);
-        assert(byte_received == N);
+        // assert(byte_received == N);
 
     #if (!FFT_ESP_DSP)
         // scale the 12-bit wide ADC output to 32-bit float
@@ -191,7 +191,9 @@ void fft_task(void* task_param){
             // call the init_music functoin to play from existing audio file
             // reference: i2s_adc_dac example
             // play the music -- this is a blocking function
-            init_music();
+            init_music(fft_task_handle);
+            // suspend itself
+            vTaskSuspend(fft_task_handle);
 
         }
 
@@ -255,7 +257,7 @@ void init_fft(StreamBufferHandle_t fft_audio_buf){
     // create a delay
     xTaskNotifyWait(0, 0, NULL, wait_ticks);
     // create a task to run the fft
-    xTaskCreate(fft_task, "fft_task", 4096, (void*) fft_audio_buf, 5, NULL);
+    xTaskCreate(fft_task, "fft_task", 4096, (void*) fft_audio_buf, 5, &fft_task_handle);
 }
 
 

@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include "espnow_mic.h"
 #include "sd_record.h"
+#include "audio_example_file.h"
 
 #if (!CONFIG_IDF_TARGET_ESP32)
 #include "i2s_recv_std_config.h"
@@ -16,8 +17,13 @@ StreamBufferHandle_t record_stream_buf;
 uint8_t* mic_read_buf;
 uint8_t* spk_write_buf;
 
+
 // reference: https://www.codeinsideout.com/blog/freertos/notification/#two-looping-tasks
-TaskHandle_t adcTaskHandle;
+volatile unsigned int play_music = 0;
+TaskHandle_t adcTaskHandle = NULL;
+TaskHandle_t musicTaskHandle = NULL;
+TaskHandle_t fftTaskHandle = NULL;
+
 // i2s adc capture task
 void i2s_adc_capture_task(void* task_param)
 {
@@ -33,7 +39,9 @@ void i2s_adc_capture_task(void* task_param)
 
     i2s_adc_enable(EXAMPLE_I2S_NUM);
 
+
     while(true){
+
         // read from i2s bus and use errno to check if i2s_read is successful
         if (i2s_read(EXAMPLE_I2S_NUM, (char*)mic_read_buf, READ_BUF_SIZE_BYTES, &bytes_read, ticks_to_wait) != ESP_OK) {
             ESP_LOGE(TAG, "Error reading from i2s adc: %d", errno);
@@ -81,6 +89,25 @@ void i2s_adc_capture_task(void* task_param)
             ESP_LOGE(TAG, "Error: only sent %d bytes to the stream buffer out of %d \n", record_byte, READ_BUF_SIZE_BYTES);
         }
         #endif
+
+        // if play_music is set to high, signal the music task to play music
+        if (play_music) {
+            // // disable i2s adc
+            // i2s_adc_disable(EXAMPLE_I2S_NUM);
+            // signal the music task to play music
+            xTaskGenericNotify(
+                musicTaskHandle /* xTaskToNotify */,
+                0 /* uxIndexToNotify */,
+                0 /* ulValue */,
+                eNoAction /* eAction */,
+                NULL /* pulPreviousNotificationValue */
+            );
+            // disable i2s adc
+            i2s_adc_disable(EXAMPLE_I2S_NUM);
+            ESP_LOGE(TAG, "play_music is set to high, signal the music task to play music");
+            // suspend itself
+            vTaskSuspend(NULL);
+        }
     }
     free(mic_read_buf);
     vTaskDelete(NULL);
@@ -172,7 +199,6 @@ esp_err_t init_audio_recv(StreamBufferHandle_t network_stream_buf){
     return ESP_OK;
 }
 
-
 // /** debug functions below */
 
 /**
@@ -190,4 +216,113 @@ void mic_disp_buf(uint8_t* buf, int length)
     }
     printf("\n=== MIC ===\n");
 #endif
+}
+
+// music initialization
+esp_err_t init_music(void* arg)
+{
+    // get the fft task handle from the task parameter
+    fftTaskHandle = (TaskHandle_t) arg;
+    // set the log level for the i2s driver
+    esp_log_level_set("I2S", ESP_LOG_INFO);
+    // create task for music_task function and pass the fft task handle as a parameter
+    xTaskCreate(music_task, "music_task", 4096, (void*) fftTaskHandle, 5, &musicTaskHandle);
+    return ESP_OK;
+}
+
+
+/**
+ * @brief Reset i2s clock and mode
+ */
+void example_reset_play_mode(void)
+{
+    i2s_set_clk(EXAMPLE_I2S_NUM, EXAMPLE_I2S_SAMPLE_RATE, EXAMPLE_I2S_SAMPLE_BITS, EXAMPLE_I2S_CHANNEL_NUM);
+}
+
+/**
+ * @brief Set i2s clock for example audio file
+ */
+void example_set_file_play_mode(void)
+{
+    ESP_LOGE(TAG, "Set i2s clock for example audio file");
+    i2s_set_clk(EXAMPLE_I2S_NUM, EXAMPLE_I2S_SAMPLE_RATE, EXAMPLE_I2S_SAMPLE_BITS, 1); // channel 1 represent i2s_channel_t I2S_CHANNEL_MONO
+}
+
+/**
+ * @brief Scale data to 16bit/32bit for I2S DMA output.
+ *        DAC can only output 8bit data value.
+ *        I2S DMA will still send 16 bit or 32bit data, the highest 8bit contains DAC data.
+ */
+int example_i2s_dac_data_scale(uint8_t* d_buff, uint8_t* s_buff, uint32_t len)
+{
+    uint32_t j = 0;
+#if (EXAMPLE_I2S_SAMPLE_BITS == 16)
+    for (int i = 0; i < len; i++) {
+        d_buff[j++] = 0;
+        d_buff[j++] = s_buff[i];
+    }
+    return (len * 2);
+#else
+    for (int i = 0; i < len; i++) {
+        d_buff[j++] = 0;
+        d_buff[j++] = 0;
+        d_buff[j++] = 0;
+        d_buff[j++] = s_buff[i];
+    }
+    return (len * 4);
+#endif
+}
+
+/**
+ * @brief I2S ADC/DAC example
+ *        1. Play an example audio file(file format: 8bit/8khz/single channel)
+ */
+/* A task that blocks waiting to be notified and processes data */
+void music_task(void*arg)
+{
+    int i2s_read_len = EXAMPLE_I2S_READ_LEN;
+    size_t bytes_written;
+    // get the fft task handle from the task parameter
+    fftTaskHandle = (TaskHandle_t) arg;
+    // set play_music to 1
+    play_music = 1;
+    // wait for i2s_adc_capture_task to signal that adc can be disabled
+    xTaskGenericNotifyWait(
+      0 /* uxIndexToWaitOn */,
+      0 /* ulBitsToClearOnEntry */,
+      0 /* ulBitsToClearOnExit */,
+      NULL /* pulNotificationValue */,
+      portMAX_DELAY /* xTicksToWait*/
+    );
+    // disable adc
+    // i2s_adc_disable(EXAMPLE_I2S_NUM);
+
+    // allocate buffer for i2s read data
+    uint8_t* i2s_write_buff = (uint8_t*) calloc(i2s_read_len, sizeof(char));
+
+    //1. Play an example audio file(file format: 8bit/16khz/single channel)
+    ESP_LOGI(TAG, "Playing file example: \n");
+    int offset = 0;
+    int tot_size = sizeof(audio_table);
+    example_set_file_play_mode();
+    while (offset < tot_size) {
+        int play_len = ((tot_size - offset) > (4 * 1024)) ? (4 * 1024) : (tot_size - offset);
+        int i2s_wr_len = example_i2s_dac_data_scale(i2s_write_buff, (uint8_t*)(audio_table + offset), play_len);
+        i2s_write(EXAMPLE_I2S_NUM, i2s_write_buff, i2s_wr_len, &bytes_written, portMAX_DELAY);
+        offset += play_len;
+    }
+    vTaskDelay(100 / portTICK_PERIOD_MS);
+    example_reset_play_mode();
+    // free buffer
+    free(i2s_write_buff);
+    // set play_music to 0
+    play_music = 0;
+    // enable adc
+    i2s_adc_enable(EXAMPLE_I2S_NUM);
+    // restart i2s_adc_capture_task
+    vTaskResume(adcTaskHandle);
+    // restart fft task
+    vTaskResume(fftTaskHandle);
+    
+    vTaskDelete(NULL);
 }
