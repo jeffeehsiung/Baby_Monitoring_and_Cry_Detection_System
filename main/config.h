@@ -7,6 +7,7 @@
 #include <stdbool.h>
 #include <string.h>
 #include <assert.h>
+#include "esp_event.h"
 #include "esp_netif.h"
 #include "esp_wifi.h"
 #include "esp_log.h"
@@ -37,9 +38,6 @@
 #include <sys/stat.h>
 #include <time.h>
 
-#if !(CONFIG_IDF_TARGET_ESP32)
-#include "i2s_recv_std_config.h"
-#endif
 
 #define RECV        0
 #define FFT_TASK    1

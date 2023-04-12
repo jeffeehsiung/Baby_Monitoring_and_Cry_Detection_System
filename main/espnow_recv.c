@@ -28,7 +28,7 @@ void espnow_recv_task(const uint8_t* mac_addr, const uint8_t* data, int len) {
 
 /* initialize reciever */
 void init_recv(StreamBufferHandle_t net_stream_buf){
-    printf("Init recieve!\n");
+    ESP_LOGI(TAG, "Init recieve!\n");
     network_stream_buf = net_stream_buf;
     if (network_stream_buf == NULL) {
         ESP_LOGE(TAG, "Error creating network stream buffer: %d", errno);
@@ -45,14 +45,14 @@ void init_recv(StreamBufferHandle_t net_stream_buf){
 void recv_disp_buf(uint8_t* buf, int length)
 {
 #if EXAMPLE_I2S_BUF_DEBUG
-    printf("\n=== RECV ===\n");
+    ESP_LOGI(TAG,"\n=== RECV ===\n");
     for (int i = 0; i < length; i++) {
-        printf("%02x ", buf[i]);
+        ESP_LOGI(TAG,"%02x ", buf[i]);
         if ((i + 1) % 8 == 0) {
-            printf("\n");
+            ESP_LOGI(TAG,"\n");
         }
     }
-    printf("\n=== RECV ===\n");
+    ESP_LOGI(TAG,"\n=== RECV ===\n");
 #endif
 }
 

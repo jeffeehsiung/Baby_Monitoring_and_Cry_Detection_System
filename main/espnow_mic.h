@@ -10,10 +10,7 @@ esp_err_t init_audio_trans(StreamBufferHandle_t mic_stream_buf, StreamBufferHand
 esp_err_t init_audio_recv(StreamBufferHandle_t network_stream_buf);
 void mic_disp_buf(uint8_t* buf, int length);
 
-void example_reset_play_mode(void);
-void example_set_file_play_mode(void);
-int example_i2s_dac_data_scale(uint8_t* d_buff, uint8_t* s_buff, uint32_t len);
-void music_task(void*arg);
-esp_err_t init_music(void*arg);
+void suspend_adc_capture_task();
+void resume_adc_capture_task();
 
 #endif
