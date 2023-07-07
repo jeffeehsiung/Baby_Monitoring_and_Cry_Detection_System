@@ -18,7 +18,6 @@ The position monitor was built using a Hall sensor as its core component. In add
 For the cry detector, audio signals arriving from a microphone were processed with an ESP32-WROOM- 32 microcontroller using digital processing techniques. The cry detector achieved an 88.4% accuracy in distinguishing infant cries, showing the effectiveness of the cry detection algorithm.
 Whenever crying, flipping or unsafe temperature is detected at the infant’s side of the monitor, the parent is warned through an LCD display present at their side. Hence, the BRMS is an effective baby monitoring system.
 
-<img width="792" alt="image" src="https://user-images.githubusercontent.com/100540403/209315718-fb5747c2-73e3-40da-b5c8-a8222c0cca0c.png">
 
 Sound processing:
 
