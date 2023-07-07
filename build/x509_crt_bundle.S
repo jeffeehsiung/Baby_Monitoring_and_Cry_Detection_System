@@ -1,4 +1,4 @@
-/* * Data converted from /Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/esp-idf/mbedtls/x509_crt_bundle
+/* * Data converted from /Users/jeffeehsiung/Desktop/Toledo/engineeringExperience3/baby-cry-detector/build/esp-idf/mbedtls/x509_crt_bundle
  */
 .data
 .section .rodata.embedded

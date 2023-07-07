@@ -5,18 +5,18 @@ cmake_minimum_required(VERSION 3.5)
 
 file(MAKE_DIRECTORY
   "/Users/jeffeehsiung/esp/esp-idf/components/bootloader/subproject"
-  "/Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/bootloader"
-  "/Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/bootloader-prefix"
-  "/Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/bootloader-prefix/tmp"
-  "/Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/bootloader-prefix/src/bootloader-stamp"
-  "/Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/bootloader-prefix/src"
-  "/Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/bootloader-prefix/src/bootloader-stamp"
+  "/Users/jeffeehsiung/Desktop/Toledo/engineeringExperience3/baby-cry-detector/build/bootloader"
+  "/Users/jeffeehsiung/Desktop/Toledo/engineeringExperience3/baby-cry-detector/build/bootloader-prefix"
+  "/Users/jeffeehsiung/Desktop/Toledo/engineeringExperience3/baby-cry-detector/build/bootloader-prefix/tmp"
+  "/Users/jeffeehsiung/Desktop/Toledo/engineeringExperience3/baby-cry-detector/build/bootloader-prefix/src/bootloader-stamp"
+  "/Users/jeffeehsiung/Desktop/Toledo/engineeringExperience3/baby-cry-detector/build/bootloader-prefix/src"
+  "/Users/jeffeehsiung/Desktop/Toledo/engineeringExperience3/baby-cry-detector/build/bootloader-prefix/src/bootloader-stamp"
 )
 
 set(configSubDirs )
 foreach(subDir IN LISTS configSubDirs)
-    file(MAKE_DIRECTORY "/Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/bootloader-prefix/src/bootloader-stamp/${subDir}")
+    file(MAKE_DIRECTORY "/Users/jeffeehsiung/Desktop/Toledo/engineeringExperience3/baby-cry-detector/build/bootloader-prefix/src/bootloader-stamp/${subDir}")
 endforeach()
 if(cfgdir)
-  file(MAKE_DIRECTORY "/Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/bootloader-prefix/src/bootloader-stamp${cfgdir}") # cfgdir has leading slash
+  file(MAKE_DIRECTORY "/Users/jeffeehsiung/Desktop/Toledo/engineeringExperience3/baby-cry-detector/build/bootloader-prefix/src/bootloader-stamp${cfgdir}") # cfgdir has leading slash
 endif()

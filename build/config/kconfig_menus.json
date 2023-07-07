@@ -4005,6 +4005,269 @@
                 "children": [
                     {
                         "children": [],
+                        "depends_on": "<choice DIRECTION>",
+                        "help": "Execute Receiver.",
+                        "id": "RECEIVER",
+                        "name": "RECEIVER",
+                        "range": null,
+                        "title": "Receiver",
+                        "type": "bool"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "<choice DIRECTION>",
+                        "help": "Execute Transmitter.",
+                        "id": "TRANSMITTER",
+                        "name": "TRANSMITTER",
+                        "range": null,
+                        "title": "Transmitter",
+                        "type": "bool"
+                    }
+                ],
+                "depends_on": null,
+                "help": "Select Communication direction.",
+                "id": "nrf24l01-configuration-communication-direction",
+                "name": "DIRECTION",
+                "title": "Communication direction",
+                "type": "choice"
+            },
+            {
+                "children": [
+                    {
+                        "children": [
+                            {
+                                "children": [],
+                                "depends_on": "<choice RF_RATIO>",
+                                "help": "RF Data Ratio is 2Mbps.",
+                                "id": "RF_RATIO_2M",
+                                "name": "RF_RATIO_2M",
+                                "range": null,
+                                "title": "2Mbps",
+                                "type": "bool"
+                            },
+                            {
+                                "children": [],
+                                "depends_on": "<choice RF_RATIO>",
+                                "help": "RF Data Ratio is 1Mbps.",
+                                "id": "RF_RATIO_1M",
+                                "name": "RF_RATIO_1M",
+                                "range": null,
+                                "title": "1Mbps",
+                                "type": "bool"
+                            },
+                            {
+                                "children": [],
+                                "depends_on": "<choice RF_RATIO>",
+                                "help": "RF Data Ratio is 250Kbps.",
+                                "id": "RF_RATIO_250K",
+                                "name": "RF_RATIO_250K",
+                                "range": null,
+                                "title": "250Kbps",
+                                "type": "bool"
+                            }
+                        ],
+                        "depends_on": "ADVANCED",
+                        "help": "Select RF Data Ratio.",
+                        "id": "nrf24l01-configuration-enable-advanced-setting-rf-data-ratio",
+                        "name": "RF_RATIO",
+                        "title": "RF Data Ratio",
+                        "type": "choice"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "ADVANCED",
+                        "help": "Set Auto Retransmit Delay.\nDelay = value * 250us.",
+                        "id": "RETRANSMIT_DELAY",
+                        "name": "RETRANSMIT_DELAY",
+                        "range": null,
+                        "title": "Auto Retransmit Delay",
+                        "type": "int"
+                    }
+                ],
+                "depends_on": null,
+                "help": "Enable Advanced Setting.",
+                "id": "ADVANCED",
+                "name": "ADVANCED",
+                "range": null,
+                "title": "Enable Advanced Setting",
+                "type": "bool"
+            }
+        ],
+        "depends_on": null,
+        "id": "nrf24l01-configuration",
+        "title": "nrf24l01 Configuration",
+        "type": "menu"
+    },
+    {
+        "children": [
+            {
+                "children": [],
+                "depends_on": null,
+                "help": "GPIO number (IOxx) for I2C SCL.\n\nSome GPIOs are used for other purposes (flash connections, etc.) and cannot be used.\n\nGPIOs 35-39 are input-only so cannot be used to drive the One Wire Bus.",
+                "id": "I2C_MASTER_SCL",
+                "name": "I2C_MASTER_SCL",
+                "range": [
+                    0,
+                    34
+                ],
+                "title": "I2C Master SCL GPIO number",
+                "type": "int"
+            },
+            {
+                "children": [],
+                "depends_on": null,
+                "help": "GPIO number (IOxx) for I2C SDA.\n\nSome GPIOs are used for other purposes (flash connections, etc.) and cannot be used.\n\nGPIOs 35-39 are input-only so cannot be used to drive the One Wire Bus.",
+                "id": "I2C_MASTER_SDA",
+                "name": "I2C_MASTER_SDA",
+                "range": [
+                    0,
+                    34
+                ],
+                "title": "I2C Master SDA GPIO number",
+                "type": "int"
+            },
+            {
+                "children": [],
+                "depends_on": null,
+                "help": "I2C address for HD44780-compatible LCD1602 device.",
+                "id": "LCD1602_I2C_ADDRESS",
+                "name": "LCD1602_I2C_ADDRESS",
+                "range": null,
+                "title": "I2C Address for LCD1602 device",
+                "type": "hex"
+            }
+        ],
+        "depends_on": null,
+        "id": "esp32-i2c-lcd1602-configuration",
+        "title": "esp32-i2c-lcd1602 Configuration",
+        "type": "menu"
+    },
+    {
+        "children": [
+            {
+                "children": [],
+                "depends_on": null,
+                "help": "SSID (network name) for the example to connect to.",
+                "id": "ESP_WIFI_SSID",
+                "name": "ESP_WIFI_SSID",
+                "range": null,
+                "title": "WiFi SSID",
+                "type": "string"
+            },
+            {
+                "children": [],
+                "depends_on": null,
+                "help": "WiFi password (WPA or WPA2) for the example to use.",
+                "id": "ESP_WIFI_PASSWORD",
+                "name": "ESP_WIFI_PASSWORD",
+                "range": null,
+                "title": "WiFi Password",
+                "type": "string"
+            },
+            {
+                "children": [],
+                "depends_on": null,
+                "help": "Set the Maximum retry to avoid station reconnecting to the AP unlimited when the AP is really inexistent.",
+                "id": "ESP_MAXIMUM_RETRY",
+                "name": "ESP_MAXIMUM_RETRY",
+                "range": null,
+                "title": "Maximum retry",
+                "type": "int"
+            },
+            {
+                "children": [
+                    {
+                        "children": [],
+                        "depends_on": "<choice ESP_WIFI_SCAN_AUTH_MODE_THRESHOLD>",
+                        "help": null,
+                        "id": "ESP_WIFI_AUTH_OPEN",
+                        "name": "ESP_WIFI_AUTH_OPEN",
+                        "range": null,
+                        "title": "OPEN",
+                        "type": "bool"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "<choice ESP_WIFI_SCAN_AUTH_MODE_THRESHOLD>",
+                        "help": null,
+                        "id": "ESP_WIFI_AUTH_WEP",
+                        "name": "ESP_WIFI_AUTH_WEP",
+                        "range": null,
+                        "title": "WEP",
+                        "type": "bool"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "<choice ESP_WIFI_SCAN_AUTH_MODE_THRESHOLD>",
+                        "help": null,
+                        "id": "ESP_WIFI_AUTH_WPA_PSK",
+                        "name": "ESP_WIFI_AUTH_WPA_PSK",
+                        "range": null,
+                        "title": "WPA PSK",
+                        "type": "bool"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "<choice ESP_WIFI_SCAN_AUTH_MODE_THRESHOLD>",
+                        "help": null,
+                        "id": "ESP_WIFI_AUTH_WPA2_PSK",
+                        "name": "ESP_WIFI_AUTH_WPA2_PSK",
+                        "range": null,
+                        "title": "WPA2 PSK",
+                        "type": "bool"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "<choice ESP_WIFI_SCAN_AUTH_MODE_THRESHOLD>",
+                        "help": null,
+                        "id": "ESP_WIFI_AUTH_WPA_WPA2_PSK",
+                        "name": "ESP_WIFI_AUTH_WPA_WPA2_PSK",
+                        "range": null,
+                        "title": "WPA/WPA2 PSK",
+                        "type": "bool"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "<choice ESP_WIFI_SCAN_AUTH_MODE_THRESHOLD>",
+                        "help": null,
+                        "id": "ESP_WIFI_AUTH_WPA3_PSK",
+                        "name": "ESP_WIFI_AUTH_WPA3_PSK",
+                        "range": null,
+                        "title": "WPA3 PSK",
+                        "type": "bool"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "<choice ESP_WIFI_SCAN_AUTH_MODE_THRESHOLD>",
+                        "help": null,
+                        "id": "ESP_WIFI_AUTH_WPA2_WPA3_PSK",
+                        "name": "ESP_WIFI_AUTH_WPA2_WPA3_PSK",
+                        "range": null,
+                        "title": "WPA2/WPA3 PSK",
+                        "type": "bool"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "<choice ESP_WIFI_SCAN_AUTH_MODE_THRESHOLD>",
+                        "help": null,
+                        "id": "ESP_WIFI_AUTH_WAPI_PSK",
+                        "name": "ESP_WIFI_AUTH_WAPI_PSK",
+                        "range": null,
+                        "title": "WAPI PSK",
+                        "type": "bool"
+                    }
+                ],
+                "depends_on": null,
+                "help": "The weakest authmode to accept in the scan mode.\nThis value defaults to ESP_WIFI_AUTH_WPA2_PSK incase password is present and ESP_WIFI_AUTH_OPEN is used.\nPlease select ESP_WIFI_AUTH_WEP/ESP_WIFI_AUTH_WPA_PSK incase AP is operating in WEP/WPA mode.",
+                "id": "wifi-configuration-wifi-scan-auth-mode-threshold",
+                "name": "ESP_WIFI_SCAN_AUTH_MODE_THRESHOLD",
+                "title": "WiFi Scan auth mode threshold",
+                "type": "choice"
+            },
+            {
+                "children": [
+                    {
+                        "children": [],
                         "depends_on": "<choice ESPNOW_WIFI_MODE>",
                         "help": null,
                         "id": "ESPNOW_WIFI_MODE_STATION",
@@ -4026,7 +4289,7 @@
                 ],
                 "depends_on": null,
                 "help": "WiFi mode(station or softap).",
-                "id": "example-configuration-wifi-mode",
+                "id": "wifi-configuration-wifi-mode",
                 "name": "ESPNOW_WIFI_MODE",
                 "title": "WiFi mode",
                 "type": "choice"
@@ -4115,8 +4378,121 @@
             }
         ],
         "depends_on": null,
-        "id": "example-configuration",
-        "title": "Example Configuration",
+        "id": "wifi-configuration",
+        "title": "Wifi Configuration",
+        "type": "menu"
+    },
+    {
+        "children": [
+            {
+                "children": [],
+                "depends_on": null,
+                "help": null,
+                "id": "GPIO_RANGE_MAX",
+                "name": "GPIO_RANGE_MAX",
+                "range": null,
+                "title": null,
+                "type": "int"
+            },
+            {
+                "children": [],
+                "depends_on": null,
+                "help": "GPIO number (IOxx) to SPI MISO.\nSome GPIOs are used for other purposes (flash connections, etc.) and cannot be used to MISO.\nOn the ESP32, GPIOs 35-39 are input-only so cannot be used as outputs.\nOn the ESP32-S2, GPIO 46 is input-only so cannot be used as outputs.",
+                "id": "MISO_GPIO",
+                "name": "MISO_GPIO",
+                "range": [
+                    0,
+                    33
+                ],
+                "title": "MISO GPIO number",
+                "type": "int"
+            },
+            {
+                "children": [],
+                "depends_on": null,
+                "help": "GPIO number (IOxx) to SPI SCLK.\nSome GPIOs are used for other purposes (flash connections, etc.) and cannot be used to SCLK.\nOn the ESP32, GPIOs 35-39 are input-only so cannot be used as outputs.\nOn the ESP32-S2, GPIO 46 is input-only so cannot be used as outputs.",
+                "id": "SCLK_GPIO",
+                "name": "SCLK_GPIO",
+                "range": [
+                    0,
+                    33
+                ],
+                "title": "SCLK GPIO number",
+                "type": "int"
+            },
+            {
+                "children": [],
+                "depends_on": null,
+                "help": "GPIO number (IOxx) to SPI MOSI.\nSome GPIOs are used for other purposes (flash connections, etc.) and cannot be used to MOSI.\nOn the ESP32, GPIOs 35-39 are input-only so cannot be used as outputs.\nOn the ESP32-S2, GPIO 46 is input-only so cannot be used as outputs.",
+                "id": "MOSI_GPIO",
+                "name": "MOSI_GPIO",
+                "range": [
+                    0,
+                    33
+                ],
+                "title": "MOSI GPIO number",
+                "type": "int"
+            },
+            {
+                "children": [],
+                "depends_on": null,
+                "help": "GPIO number (IOxx) to CE.\nSome GPIOs are used for other purposes (flash connections, etc.) and cannot be used to CE.\nOn the ESP32, GPIOs 35-39 are input-only so cannot be used as outputs.\nOn the ESP32-S2, GPIO 46 is input-only so cannot be used as outputs.",
+                "id": "CE_GPIO",
+                "name": "CE_GPIO",
+                "range": [
+                    0,
+                    33
+                ],
+                "title": "CE GPIO number",
+                "type": "int"
+            },
+            {
+                "children": [],
+                "depends_on": null,
+                "help": "GPIO number (IOxx) to CSN.\nSome GPIOs are used for other purposes (flash connections, etc.) and cannot be used to CSN.\nOn the ESP32, GPIOs 35-39 are input-only so cannot be used as outputs.\nOn the ESP32-S2, GPIO 46 is input-only so cannot be used as outputs.",
+                "id": "CSN_GPIO",
+                "name": "CSN_GPIO",
+                "range": [
+                    0,
+                    33
+                ],
+                "title": "CSN GPIO number",
+                "type": "int"
+            },
+            {
+                "children": [
+                    {
+                        "children": [],
+                        "depends_on": "<choice SPI_HOST>",
+                        "help": "Use SPI2_HOST. This is also called HSPI_HOST.",
+                        "id": "SPI2_HOST",
+                        "name": "SPI2_HOST",
+                        "range": null,
+                        "title": "SPI2_HOST",
+                        "type": "bool"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": "(IDF_TARGET_ESP32 || IDF_TARGET_ESP32S2 || IDF_TARGET_ESP32S3) && <choice SPI_HOST>",
+                        "help": "USE SPI3_HOST. This is also called VSPI_HOST",
+                        "id": "SPI3_HOST",
+                        "name": "SPI3_HOST",
+                        "range": null,
+                        "title": "SPI3_HOST",
+                        "type": "bool"
+                    }
+                ],
+                "depends_on": null,
+                "help": "Select SPI peripheral that controls this bus.",
+                "id": "nrf24l01-configuration-spi-peripheral-that-controls-this-bus",
+                "name": "SPI_HOST",
+                "title": "SPI peripheral that controls this bus",
+                "type": "choice"
+            }
+        ],
+        "depends_on": null,
+        "id": "nrf24l01-configuration",
+        "title": "nRF24L01 Configuration",
         "type": "menu"
     },
     {
@@ -14740,7 +15116,10 @@
                                 "help": "Set the size of WiFi Block Ack TX window. Generally a bigger value means higher throughput but\nmore memory. Most of time we should NOT change the default value unless special reason, e.g.\ntest the maximum UDP TX throughput with iperf etc. For iperf test in shieldbox, the recommended\nvalue is 9~12.",
                                 "id": "ESP32_WIFI_TX_BA_WIN",
                                 "name": "ESP32_WIFI_TX_BA_WIN",
-                                "range": null,
+                                "range": [
+                                    2,
+                                    32
+                                ],
                                 "title": "WiFi AMPDU TX BA window size",
                                 "type": "int"
                             }
@@ -14761,7 +15140,10 @@
                                 "help": "Set the size of WiFi Block Ack RX window. Generally a bigger value means higher throughput and better\ncompatibility but more memory. Most of time we should NOT change the default value unless special\nreason, e.g. test the maximum UDP RX throughput with iperf etc. For iperf test in shieldbox, the\nrecommended value is 9~12. If PSRAM is used and WiFi memory is prefered to allocat in PSRAM first,\nthe default and minimum value should be 16 to achieve better throughput and compatibility with both\nstations and APs.",
                                 "id": "ESP32_WIFI_RX_BA_WIN",
                                 "name": "ESP32_WIFI_RX_BA_WIN",
-                                "range": null,
+                                "range": [
+                                    2,
+                                    32
+                                ],
                                 "title": "WiFi AMPDU RX BA window size",
                                 "type": "int"
                             }

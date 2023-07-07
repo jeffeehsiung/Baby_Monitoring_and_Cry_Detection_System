@@ -1,4 +1,4 @@
-# Install script for directory: /Users/jeffeehsiung/Desktop/Esp32/espnow_public
+# Install script for directory: /Users/jeffeehsiung/Desktop/Toledo/engineeringExperience3/baby-cry-detector
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -39,7 +39,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/esp-idf/cmake_install.cmake")
+  include("/Users/jeffeehsiung/Desktop/Toledo/engineeringExperience3/baby-cry-detector/build/esp-idf/cmake_install.cmake")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/Users/jeffeehsiung/Desktop/Esp32/espnow_public/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/Users/jeffeehsiung/Desktop/Toledo/engineeringExperience3/baby-cry-detector/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

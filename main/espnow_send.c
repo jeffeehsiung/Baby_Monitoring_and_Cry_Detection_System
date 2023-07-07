@@ -6,11 +6,21 @@
 
 #define ESPNOW_MAXDELAY 512
 #define ESPNOW_MAX_SEND_BYTE 250 // 250 max bytes per packet size. (16000*12/8 = 24000 bytes per second. 24000/250 = 96 transmissions per second is needed)
+#define ESPNOW_SEND_DEBUG 0
 
 static const char *TAG = "espnow_send";
 
 static uint8_t broadcast_mac[ESP_NOW_ETH_ALEN] = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
 static uint8_t esp_now_send_buf[ESPNOW_MAX_SEND_BYTE];
+
+TaskHandle_t espnow_send_task_handle = NULL;
+
+// get the task handle of espnow_send_task
+TaskHandle_t get_espnow_send_task_handle()
+{
+    assert(espnow_send_task_handle != NULL);
+    return espnow_send_task_handle;
+}
 
 /* sender task definition */
 void espnow_send_task(void* task_param) {
@@ -18,10 +28,7 @@ void espnow_send_task(void* task_param) {
     // get the stream buffer handle from the task parameter
     StreamBufferHandle_t mic_stream_buf = (StreamBufferHandle_t) task_param;
 
-    // for debugging, assert the size of the esp now send buffer is equal to the max send byte
-    assert(sizeof(esp_now_send_buf) == ESPNOW_MAX_SEND_BYTE*sizeof(char));
-
-    #if EXAMPLE_I2S_BUF_DEBUG
+    #if ESPNOW_SEND_DEBUG
         // create a timer to coutn the time elapsed
         time_t start_time = time(NULL);
         // declare a counter to count the packets sent
@@ -29,14 +36,13 @@ void espnow_send_task(void* task_param) {
         int packet_loss = 0;
     #endif
 
-    while (true) {
-
+    while (true) { 
         // read from the mic stream buffer until it is empty
-        size_t num_bytes = xStreamBufferReceive(mic_stream_buf, esp_now_send_buf, READ_BUF_SIZE_BYTES, portMAX_DELAY);
-        if (num_bytes > 0) {
+        size_t num_bytes = xStreamBufferReceive(mic_stream_buf, esp_now_send_buf, READ_BUF_SIZE_BYTES*sizeof(char), portMAX_DELAY);
+        if (num_bytes > 0 ) {
             esp_err_t err = esp_now_send(broadcast_mac, esp_now_send_buf, READ_BUF_SIZE_BYTES);
             
-            #if EXAMPLE_I2S_BUF_DEBUG
+            #if ESPNOW_SEND_DEBUG
                 if (err != ESP_OK || num_bytes != READ_BUF_SIZE_BYTES) {
                     packet_loss++;
                 }else{
@@ -45,13 +51,9 @@ void espnow_send_task(void* task_param) {
                 }
             #endif
         }
-        else if (num_bytes == 0) {
-            ESP_LOGI(TAG,"Error reading from mic stream buffer: %d\n", errno);
-            ESP_LOGE(TAG, "No data in stream buffer");
-        }
-        #if EXAMPLE_I2S_BUF_DEBUG
+        #if ESPNOW_SEND_DEBUG
             // check if the timer has reached 10 second
-            if (time(NULL) - start_time >= 60*100) {
+            if (time(NULL) - start_time >= 10) {
                 // print the number of packets sent and loss in the last second
                 ESP_LOGI(TAG, "Packets sent in last 10 second: %d \n", packet_count);
                 ESP_LOGI(TAG, "Packets lost in last 10 second: %d \n", packet_loss);
@@ -68,7 +70,10 @@ void espnow_send_task(void* task_param) {
 /* sender initialization */
 void init_transmit(StreamBufferHandle_t mic_stream_buf){
     ESP_LOGI(TAG,"Init transport!\n");
-    xTaskCreate(espnow_send_task, "espnow_send_task", 4096, (void*) mic_stream_buf, 4, NULL); // create another thread to send data
+    xTaskCreate(espnow_send_task, "espnow_send_task", 1024, (void*) mic_stream_buf, IDLE_TASK_PRIO, &espnow_send_task_handle);
+    // confirm that the task is created
+    configASSERT(espnow_send_task_handle);
+
 }
 
 /** debug functions below */

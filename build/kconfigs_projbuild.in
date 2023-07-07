@@ -3,4 +3,5 @@ source "/Users/jeffeehsiung/esp/esp-idf/components/esp_app_format/Kconfig.projbu
 source "/Users/jeffeehsiung/esp/esp-idf/components/esp_rom/Kconfig.projbuild"
 source "/Users/jeffeehsiung/esp/esp-idf/components/esptool_py/Kconfig.projbuild"
 source "/Users/jeffeehsiung/esp/esp-idf/components/partition_table/Kconfig.projbuild"
-source "/Users/jeffeehsiung/Desktop/Esp32/espnow_public/main/Kconfig.projbuild"
+source "/Users/jeffeehsiung/Desktop/Toledo/engineeringExperience3/baby-cry-detector/main/Kconfig.projbuild"
+source "/Users/jeffeehsiung/Desktop/Toledo/engineeringExperience3/baby-cry-detector/components/mirf/Kconfig.projbuild"

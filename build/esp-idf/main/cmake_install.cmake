@@ -1,4 +1,4 @@
-# Install script for directory: /Users/jeffeehsiung/Desktop/Esp32/espnow_public/main
+# Install script for directory: /Users/jeffeehsiung/Desktop/Toledo/engineeringExperience3/baby-cry-detector/main
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

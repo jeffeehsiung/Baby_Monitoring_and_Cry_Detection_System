@@ -11,6 +11,13 @@ languages used:
     Tasks: ongoing
 
 
+# abstract
+The Baby Radio Monitoring System (BRMS) is a device designed to address Sudden Infant Death Syndrome (SIDS), the leading cause of death for one-month- to one-year-olds. The design integrates a room temper- ature and sleeping position monitor since both factors are thought to increase the risk of SIDS, according to the Centers for Disease Control and Prevention. The BRMS is furthermore capable of detecting whether a baby is crying. All temperature, position and audio data is captured at the baby’s side, processed by a microcontroller, and then sent wirelessly to the parent’s side.
+The temperature monitor was built using a thermistor as its core component. An STM8S105K4 microcon- troller closely measures the voltage across this temperature-dependent resistor. This way, the BRMS is capable of tracking the temperature in the baby’s room with up to 0.5 ◦C precision.
+The position monitor was built using a Hall sensor as its core component. In addition, a magnet is placed onto the baby’s chest which interacts with the Hall sensor. The voltage across the sensor changes according to the magnetic field strength applied to it. Again, the STM8 records this voltage and can hence determine in which position the baby is sleeping.
+For the cry detector, audio signals arriving from a microphone were processed with an ESP32-WROOM- 32 microcontroller using digital processing techniques. The cry detector achieved an 88.4% accuracy in distinguishing infant cries, showing the effectiveness of the cry detection algorithm.
+Whenever crying, flipping or unsafe temperature is detected at the infant’s side of the monitor, the parent is warned through an LCD display present at their side. Hence, the BRMS is an effective baby monitoring system.
+
 <img width="792" alt="image" src="https://user-images.githubusercontent.com/100540403/209315718-fb5747c2-73e3-40da-b5c8-a8222c0cca0c.png">
 
 Sound processing:
@@ -23,11 +30,11 @@ The sound detection system will collect the sound input with a TDK InvenSense MM
 
 For each stage in the sound detection block diagram, a short description will be listed below.
 
-In the analog gain and signal conditioning stage, a Bessel or Butterworth bandpass filter and an instrumental amplifier with unity gain will be connected in series to filter out the non-target frequency and to reduce common environmental noise. Frequency below and above the fundamental frequencies and harmonics of an infant can be disregarded by a bandpass filter.
+In the analog gain and signal conditioning stage, a Butterworth bandpass filter and an instrumental amplifier with unity gain will be connected in series to filter out the non-target frequency and to reduce common environmental noise. Frequency below and above the fundamental frequencies and harmonics of an infant can be disregarded by a bandpass filter.
 
-An anti-aliasing low pass filter following the gain/signal conditioning cell is to keep the DC signal out of the spectrum and to reduce out-of-band frequencies that can degrade the analog-to-digital conversion. Anti-aliasing low pass filter will be implemented either in Chebyshev-I or a Bessel low pass filter, with a cut off frequency equal to half of the ADC sampling frequency,
+An anti-aliasing low pass filter following the gain/signal conditioning cell is to keep the DC signal out of the spectrum and to reduce out-of-band frequencies that can degrade the analog-to-digital conversion. Anti-aliasing low pass filter is again a Butterworth 6th order low pass filter, with a cut off frequency at 4000Hz.
 
-Analog-to-digital converter cell will transmit a digital representation of the gained, filtered analog signal to a digital processor. ADC of the system will have a bit depth of at least 8 to ensure the quality of a signal magnitude rating system, with a sampling rate of at least 8,000 Hz, up to 16,000Hz.
+Analog-to-digital converter cell will transmit a digital representation of the gained, filtered analog signal to a digital processor. ADC of the system will have a bit depth of at least 8 to ensure the quality of a signal magnitude rating system, with a sampling rate of at least 8,000 Hz, up to 44,100Hz. A sampling frequency of 44100Hz is used in this system.
 
 Digital signal processor, in the next stage, consists of two elements, digital filtering and digital signal processing. Digital filtering is to further reduce noise and smooth the signal output from ADC, such as by a digitized Butterworth low pass filter. Digital signal processing, on the other hand, is to generate the frequency spectrum of filtered digital signal for pattern analysis, and further utilize Continuous Fourier Transform, Fast Fourier Transform, or Finite Impulse Response to develop an algorithm that discerns signals of crying and of babbling.
 
@@ -40,13 +47,10 @@ Digital signal processor, in the next stage, consists of two elements, digital f
 Digital signal processor, in the next stage, consists of two elements, digital filtering and digital signal processing. Digital filtering is to further reduce noise and smooth the signal output from ADC, such as by a digitized Butterworth low pass filter. Digital signal processing, on the other hand, is to generate the frequency spectrum of filtered digital signal for pattern analysis, and further utilize Continuous Fourier Transform, Fast Fourier Transform, or Finite Impulse Response to develop an algorithm that discerns signals of crying and of babbling.
 
 
-<<<<<<< HEAD
-=======
 
->>>>>>> receiver
 
-| Supported Targets | ESP32 | ESP32-C3 | ESP32-S2 | ESP32-S3 |
-| ----------------- | ----- | -------- | -------- | -------- |
+| Supported Targets | ESP32 |
+| ----------------- | ----- | 
 
 # ESPNOW Example
 
@@ -95,7 +99,6 @@ The following is the hardware connection:
 |Microphone|ADC1_CH0|GPIO35|
 |speaker(R)|DAC1|GPIO25|
 |speaker(L)|DAC2|GPIO26|
-|speaker(L)|ESP32_S3|GPIO4|
 
 ### Configure the project
 
@@ -150,12 +153,19 @@ Here is the example of ESPNOW sending device console output.
 ```
 Init transport!
 initializing i2s mic
-Packets sent in last 10 second: 3350 
-Packets lost in last 10 second: 2221 
-Packets sent in last 10 second: 3347 
-Packets lost in last 10 second: 2445 
-Packets sent in last 10 second: 3407 
-Packets lost in last 10 second: 2385 
+Bytes available in stream buffer: 16384 
+peak 1 at frequency 430.000000 Hz with amplitude 2.408174 
+peak 2 at frequency 1892.000000 Hz with amplitude 2.283813 
+peak 1 at frequency 1505.000000 Hz with amplitude 2.708347 
+peak 2 at frequency 301.000000 Hz with amplitude 2.529614 
+peak 1 at frequency 645.000000 Hz with amplitude 3.665064 
+peak 2 at frequency 387.000000 Hz with amplitude 2.986069 
+cry detected at f0 387.000000 Hz with amplitude 3.617141 and f2 1376.000000 with amplitude 2.395091
+cry detected at f0 387.000000 Hz with amplitude 2.040233 and f2 1376.000000 with amplitude 1.812771
+cry detected at f0 387.000000 Hz with amplitude 2.650546 and f2 1376.000000 with amplitude 2.321801
+cry detected at f0 387.000000 Hz with amplitude 3.742941 and f2 1376.000000 with amplitude 2.673561
+cry detected at f0 387.000000 Hz with amplitude 3.999676 and f2 1376.000000 with amplitude 2.550040
+cry detected at f0 387.000000 Hz with amplitude 2.740722 and f2 1376.000000 with amplitude 1.979644
 ```
 
 ## Troubleshooting
