@@ -1,8 +1,6 @@
 # baby-cry-detector
 * Bachelor Thesis: 
-[embed]
-https://kuleuven-my.sharepoint.com/:b:/g/personal/chiehfei_hsiung_student_kuleuven_be/EcfoaxkRghtKt4JilGYyM3ABL0SFrNphhALyeYnIRNwjKQ?e=IWfu4x.pdf
-[/embed]
+[Bachelor Thesis](Baby Sleep Radio Monitor.pdf)
 
 
 repository for my bachelor thesis project: a baby cry detector
