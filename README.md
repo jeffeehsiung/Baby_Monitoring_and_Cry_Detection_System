@@ -1,4 +1,6 @@
 # baby-cry-detector
+[embed]https://kuleuven-my.sharepoint.com/:b:/g/personal/chiehfei_hsiung_student_kuleuven_be/EcfoaxkRghtKt4JilGYyM3ABL0SFrNphhALyeYnIRNwjKQ?e=IWfu4x.pdf[/embed]
+
 repository for my bachelor thesis project: a baby cry detector
 languages used:
   1. Matlab for audio signal ananlysis, filter design, async signal processing simulatoin. 
