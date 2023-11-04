@@ -1,6 +1,6 @@
 # baby-cry-detector
 * Bachelor Thesis: 
-[Bachelor Thesis](Baby_Sleep_Radio_Monitor.pdf)
+[Baby Sleep Radio Monitor](Baby_Sleep_Radio_Monitor.pdf)
 
 
 repository for my bachelor thesis project: a baby cry detector
